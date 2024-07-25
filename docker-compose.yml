@@ -1,0 +1,8 @@
+services:
+  mock:
+    image: stoplight/prism
+    ports:
+      - '4010:4010'
+    entrypoint: ["node", "dist/index.js", "-h", "0.0.0.0", "mock", "/resources/openapi.json"]
+    volumes:
+      - ./resources:/resources
