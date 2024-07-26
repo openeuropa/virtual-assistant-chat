@@ -10,7 +10,7 @@ import {
 
 function App() {
   return (
-      <div style={{ position: "absolute", width: "100%", height: "100vh", top: 0 }}>
+      <div style={{ position: "absolute", width: "50%", height: "50vh", right: 0 }}>
           <MainContainer>
               <ChatContainer>
                   <MessageList>
@@ -22,7 +22,10 @@ function App() {
                           }}
                       />
                   </MessageList>
-                  <MessageInput placeholder="Type message here" />
+                  <MessageInput
+                      placeholder="Type question here"
+                      onSend={(a) => {console.log(a, 'pressed send')}}
+                  />
               </ChatContainer>
           </MainContainer>
       </div>
