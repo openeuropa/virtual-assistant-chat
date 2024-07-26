@@ -22,4 +22,6 @@ test:
   dependencies:
     - yarn
   script:
+    - yarn lint
+    - yarn prettier-check
     - yarn test
