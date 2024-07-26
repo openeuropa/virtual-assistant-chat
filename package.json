@@ -11,6 +11,8 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "axios": "^1.7.2",
     "openapi-client-axios": "^7.5.5",
     "react": "^18.3.1",
