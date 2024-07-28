@@ -1,36 +1,95 @@
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
-  MainContainer,
-  ChatContainer,
-  MessageList,
-  Message,
-  MessageInput,
-} from "@chatscope/chat-ui-kit-react";
+  BasicStorage,
+  ChatProvider,
+  Conversation,
+  ConversationRole,
+  Participant,
+  Presence,
+  TypingUsersList,
+  User,
+  UserStatus,
+} from "@chatscope/use-chat";
+import { nanoid } from "nanoid";
+import { AutoDraft } from "@chatscope/use-chat/dist/enums/AutoDraft";
+import { ChatService } from "./services/chatService.js";
+import { Chat } from "./Chat.jsx";
+
+// sendMessage and addMessage methods can automagically generate id for messages and groups
+// This allows you to omit doing this manually, but you need to provide a message generator
+// The message id generator is a function that receives message and returns id for this message
+// The group id generator is a function that returns string
+const messageIdGenerator = () => nanoid();
+const groupIdGenerator = () => nanoid();
+
+const storage = new BasicStorage({ groupIdGenerator, messageIdGenerator });
+
+// Create serviceFactory
+const serviceFactory = (storage, updateState) => {
+  return new ChatService(storage, updateState);
+};
+
+const defaultUser = new User({
+  id: "Me",
+  presence: new Presence({ status: UserStatus.Available, description: "" }),
+  firstName: "",
+  lastName: "",
+  username: "Me",
+  email: "",
+  avatar: "",
+  bio: "",
+});
+
+function createConversation(id, name) {
+  return new Conversation({
+    id,
+    participants: [
+      new Participant({
+        id: name,
+        role: new ConversationRole([]),
+      }),
+    ],
+    unreadCounter: 0,
+    typingUsers: new TypingUsersList({ items: [] }),
+    draft: "",
+  });
+}
+
+const assistantName = "Virtual Assistant";
+storage.addUser(
+  new User({
+    id: assistantName,
+    presence: new Presence({ status: UserStatus.Available, description: "" }),
+    firstName: "",
+    lastName: "",
+    username: assistantName,
+    email: "",
+    avatar: "",
+    bio: "",
+  }),
+);
+
+const conversationId = nanoid();
+storage.addConversation(createConversation(conversationId, assistantName));
+storage.setActiveConversation(conversationId);
 
 function App() {
   return (
     <div
-      style={{ position: "absolute", width: "50%", height: "50vh", right: 0 }}
+      style={{ position: "absolute", width: "100%", height: "100vh", top: 0 }}
     >
-      <MainContainer>
-        <ChatContainer>
-          <MessageList>
-            <Message
-              model={{
-                message: "Hello my friend",
-                sentTime: "just now",
-                sender: "Joe",
-              }}
-            />
-          </MessageList>
-          <MessageInput
-            placeholder="Type question here"
-            onSend={(a) => {
-              console.log(a, "pressed send");
-            }}
-          />
-        </ChatContainer>
-      </MainContainer>
+      <ChatProvider
+        serviceFactory={serviceFactory}
+        storage={storage}
+        config={{
+          typingThrottleTime: 250,
+          typingDebounceTime: 900,
+          debounceTyping: true,
+          autoDraft: AutoDraft.Save | AutoDraft.Restore,
+        }}
+      >
+        <Chat user={defaultUser} />
+      </ChatProvider>
     </div>
   );
 }
