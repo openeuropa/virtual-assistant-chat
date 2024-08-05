@@ -11,7 +11,6 @@ import {
   MessageInput,
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
-
 import {
   useChat,
   ChatMessage,
@@ -19,6 +18,7 @@ import {
   MessageDirection,
   MessageStatus,
 } from "@chatscope/use-chat";
+import { random } from "nanoid";
 
 export const Chat = ({ user }) => {
   // Get all chat related values and methods from useChat hook

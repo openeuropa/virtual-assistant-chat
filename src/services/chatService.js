@@ -1,14 +1,13 @@
-// This IChatService implementation is only an example and has no real business value.
-// However, this is good start point to make your own implementation.
-// Using this service it's possible to connects two or more chats in the same application for a demonstration purposes
-
-// @todo see https://github.com/chatscope/use-chat/blob/main/src/examples/ExampleChatService.ts
-
 import {
+  ChatMessage,
+  MessageContentType,
   MessageDirection,
   MessageEvent,
+  MessageStatus,
   UserTypingEvent,
 } from "@chatscope/use-chat";
+import { nanoid, random } from "nanoid";
+import * as client from "./apiClient.js";
 
 export class ChatService {
   constructor(storage, update) {
@@ -23,80 +22,32 @@ export class ChatService {
       onUserPresenceChanged: () => {},
       onUserTyping: () => {},
     };
-
-    // For communication we use CustomEvent dispatched to the window object.
-    // It allows you to simulate sending and receiving data from the server.
-    // In a real application, instead of adding a listener to the window,
-    // you will implement here receiving data from your chat server.
-    window.addEventListener("chat-protocol", (evt) => {
-      const event = evt;
-
-      const {
-        detail: { type },
-        detail,
-      } = event;
-
-      if (type === "message") {
-        const message = detail.message;
-
-        message.direction = MessageDirection.Incoming;
-        const { conversationId } = detail;
-        if (this.eventHandlers.onMessage && detail.sender !== this) {
-          // Running the onMessage callback registered by ChatProvider will cause:
-          // 1. Add a message to the conversation to which the message was sent
-          // 2. If a conversation with the given id exists and is not active,
-          //    its unreadCounter will be incremented
-          // 3. Remove information about the sender who is writing from the conversation
-          // 4. Re-render
-          //
-          // Note!
-          // If a conversation with such id does not exist,
-          // the message will be added, but the conversation object will not be created.
-          // You have to take care of such a case yourself.
-          // You can check here if there is already a conversation in storage.
-          // If it is not there, you can create it before calling onMessage.
-          // After adding a conversation to the list, you don't need to manually run updateState
-          // because ChatProvider in onMessage will do it.
-          this.eventHandlers.onMessage(
-            new MessageEvent({ message, conversationId }),
-          );
-        }
-      } else if (type === "typing") {
-        const { userId, isTyping, conversationId, content, sender } = detail;
-
-        if (this.eventHandlers.onUserTyping && sender !== this) {
-          // Running the onUserTyping callback registered by ChatProvider will cause:
-          // 1. Add the user to the list of users who are typing in the conversation
-          // 2. Debounce
-          // 3. Re-render
-          this.eventHandlers.onUserTyping(
-            new UserTypingEvent({
-              userId,
-              isTyping,
-              conversationId,
-              content,
-            }),
-          );
-        }
-      }
-    });
   }
 
   sendMessage({ message, conversationId }) {
-    // We send messages using a CustomEvent dispatched to the window object.
-    // They are received in the callback assigned in the constructor.
-    // In a real application, instead of dispatching the event here,
-    // you will implement sending messages to your chat server.
-    const messageEvent = new CustomEvent("chat-protocol", {
-      detail: {
-        type: "message",
-        message,
-        conversationId,
-        sender: this,
-      },
-    });
-
-    window.dispatchEvent(messageEvent);
+    // @todo: remove hardcoded service URL.
+    const api = client.getInstance("http://127.0.0.1:5000");
+    api
+      .init()
+      .then((client) =>
+        client.get("/ask", {
+          params: {
+            question: message.content,
+          },
+        }),
+      )
+      .then((res) => {
+        const answer = new ChatMessage({
+          id: nanoid(),
+          content: res.data.answer,
+          contentType: MessageContentType.TextHtml,
+          senderId: "assistant",
+          direction: MessageDirection.Incoming,
+          status: MessageStatus.Sent,
+        });
+        const event = new MessageEvent({ message: answer, conversationId });
+        this.eventHandlers.onMessage(event);
+      });
 
     return message;
   }
