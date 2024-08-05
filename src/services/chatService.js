@@ -26,7 +26,6 @@ export class ChatService {
   }
 
   sendMessage({ message, conversationId }) {
-    // @todo: remove hardcoded service URL.
     const api = client.getInstance(this.url);
     api
       .init()
@@ -53,31 +52,8 @@ export class ChatService {
     return message;
   }
 
-  sendTyping({ isTyping, content, conversationId, userId }) {
-    // We send the "typing" signalization using a CustomEvent dispatched to the window object.
-    // It is received in the callback assigned in the constructor
-    // In a real application, instead of dispatching the event here,
-    // you will implement sending signalization to your chat server.
-    const typingEvent = new CustomEvent("chat-protocol", {
-      detail: {
-        type: "typing",
-        isTyping,
-        content,
-        conversationId,
-        userId,
-        sender: this,
-      },
-    });
+  sendTyping({ isTyping, content, conversationId, userId }) {}
 
-    window.dispatchEvent(typingEvent);
-  }
-
-  // The ChatProvider registers callbacks with the service.
-  // These callbacks are necessary to notify the provider of the changes.
-  // For example, when your service receives a message, you need to run an onMessage callback,
-  // because the provider must know that the new message arrived.
-  // Here you need to implement callback registration in your service.
-  // You can do it in any way you like. It's important that you will have access to it elsewhere in the service.
   on(evtType, evtHandler) {
     const key = `on${evtType.charAt(0).toUpperCase()}${evtType.substring(1)}`;
 
@@ -86,8 +62,6 @@ export class ChatService {
     }
   }
 
-  // The ChatProvider can unregister the callback.
-  // In this case remove it from your service to keep it clean.
   off(evtType) {
     const key = `on${evtType.charAt(0).toUpperCase()}${evtType.substring(1)}`;
     if (key in this.eventHandlers) {
