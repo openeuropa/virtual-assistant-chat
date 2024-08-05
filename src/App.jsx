@@ -15,65 +15,61 @@ import { AutoDraft } from "@chatscope/use-chat/dist/enums/AutoDraft";
 import { ChatService } from "./services/chatService.js";
 import { Chat } from "./Chat.jsx";
 
-// sendMessage and addMessage methods can automagically generate id for messages and groups
-// This allows you to omit doing this manually, but you need to provide a message generator
-// The message id generator is a function that receives message and returns id for this message
-// The group id generator is a function that returns string
-const messageIdGenerator = () => nanoid();
-const groupIdGenerator = () => nanoid();
+function App({ url }) {
+  const messageIdGenerator = () => nanoid();
+  const groupIdGenerator = () => nanoid();
 
-const storage = new BasicStorage({ groupIdGenerator, messageIdGenerator });
+  const storage = new BasicStorage({ groupIdGenerator, messageIdGenerator });
 
-// Create serviceFactory
-const serviceFactory = (storage, updateState) => {
-  return new ChatService(storage, updateState);
-};
+  // Create serviceFactory
+  const serviceFactory = (storage, updateState) => {
+    return new ChatService(storage, updateState, url);
+  };
 
-const defaultUser = new User({
-  id: "Me",
-  presence: new Presence({ status: UserStatus.Available, description: "" }),
-  firstName: "",
-  lastName: "",
-  username: "Me",
-  email: "",
-  avatar: "",
-  bio: "",
-});
-
-function createConversation(id, name) {
-  return new Conversation({
-    id,
-    participants: [
-      new Participant({
-        id: name,
-        role: new ConversationRole([]),
-      }),
-    ],
-    unreadCounter: 0,
-    typingUsers: new TypingUsersList({ items: [] }),
-    draft: "",
-  });
-}
-
-const assistantName = "Virtual Assistant";
-storage.addUser(
-  new User({
-    id: assistantName,
+  const defaultUser = new User({
+    id: "Me",
     presence: new Presence({ status: UserStatus.Available, description: "" }),
     firstName: "",
     lastName: "",
-    username: assistantName,
+    username: "Me",
     email: "",
     avatar: "",
     bio: "",
-  }),
-);
+  });
 
-const conversationId = nanoid();
-storage.addConversation(createConversation(conversationId, assistantName));
-storage.setActiveConversation(conversationId);
+  function createConversation(id, name) {
+    return new Conversation({
+      id,
+      participants: [
+        new Participant({
+          id: name,
+          role: new ConversationRole([]),
+        }),
+      ],
+      unreadCounter: 0,
+      typingUsers: new TypingUsersList({ items: [] }),
+      draft: "",
+    });
+  }
 
-function App() {
+  const assistantName = "Virtual Assistant";
+  storage.addUser(
+    new User({
+      id: assistantName,
+      presence: new Presence({ status: UserStatus.Available, description: "" }),
+      firstName: "",
+      lastName: "",
+      username: assistantName,
+      email: "",
+      avatar: "",
+      bio: "",
+    }),
+  );
+
+  const conversationId = nanoid();
+  storage.addConversation(createConversation(conversationId, assistantName));
+  storage.setActiveConversation(conversationId);
+
   return (
     <div
       style={{ position: "absolute", width: "100%", height: "100vh", top: 0 }}

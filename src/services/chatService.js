@@ -10,9 +10,10 @@ import { nanoid, random } from "nanoid";
 import * as client from "./apiClient.js";
 
 export class ChatService {
-  constructor(storage, update) {
+  constructor(storage, update, url) {
     this.storage = storage;
     this.updateState = update;
+    this.url = url;
 
     this.eventHandlers = {
       onMessage: () => {},
@@ -26,7 +27,7 @@ export class ChatService {
 
   sendMessage({ message, conversationId }) {
     // @todo: remove hardcoded service URL.
-    const api = client.getInstance("http://127.0.0.1:5000");
+    const api = client.getInstance(this.url);
     api
       .init()
       .then((client) =>
