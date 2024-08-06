@@ -17,7 +17,7 @@ export const Documents = ({ documents }) => {
       selector: (row) => row.rating,
     },
     {
-      name: "date",
+      name: "Pubication date",
       selector: (row) => row.source_date,
       cell: (row) => {
         const dateObject = new Date(row.source_date);
@@ -32,11 +32,11 @@ export const Documents = ({ documents }) => {
 
         const formattedDate = dateObject.toLocaleString("en-GB", options);
         return (
-          <>
+          <div>
             <ReactTimeAgo date={dateObject} locale="en-GB" />
             <br />
             <small style={{ whiteSpace: "nowrap" }}>{formattedDate}</small>
-          </>
+          </div>
         );
       },
     },

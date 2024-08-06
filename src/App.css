@@ -1,3 +1,10 @@
+.rdt_TableHead .rdt_TableCol {
+  background-color: #f2f2f2;
+}
+.rdt_TableHead .rdt_TableCol_Sortable {
+  font-weight: bold;
+}
+.rdt_TableCell,
 .rdt_Table {
   font-family:
     Helvetica Neue,
@@ -6,7 +13,7 @@
     Arial,
     sans-serif;
   font-weight: normal;
-  font-size: 0.8em;
+  font-size: 1em;
   font-variant: normal;
   color: rgba(0, 0, 0, 0.87);
 }
