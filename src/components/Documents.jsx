@@ -8,6 +8,7 @@ import { Column } from "primereact/column";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ReactTimeAgo from "react-time-ago";
+import LinkTo from "@storybook/addon-links/react";
 
 export const Documents = ({ documents }) => {
   TimeAgo.addDefaultLocale(en);
@@ -41,6 +42,13 @@ export const Documents = ({ documents }) => {
   const rowExpansionTemplate = (data) => {
     return <div className="p-3">{data.content}dfafdsa</div>;
   };
+  const sourceTemplate = (data) => {
+    return (
+      <a href={data.source_url} target={"_blank"}>
+        Visit source
+      </a>
+    );
+  };
 
   return (
     documents && (
@@ -61,15 +69,25 @@ export const Documents = ({ documents }) => {
           <Column expander={allowExpansion} style={{ width: "1rem" }} />
           <Column field="title" header="Title"></Column>
           <Column
+            field="rating"
+            header="Rating"
+            style={{ textAlign: "center" }}
+          ></Column>
+          <Column
             field="source"
             header="Source"
             style={{ whiteSpace: "nowrap" }}
           ></Column>
-          <Column field="rating" header="Rating"></Column>
           <Column
             field="source_date"
             header="Date"
             body={dateTemplate}
+          ></Column>
+          <Column
+            field="source_url"
+            header="Source"
+            style={{ whiteSpace: "nowrap" }}
+            body={sourceTemplate}
           ></Column>
         </DataTable>
       </>
