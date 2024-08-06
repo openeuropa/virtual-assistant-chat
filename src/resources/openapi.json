@@ -696,7 +696,10 @@
           "source_url": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "x-faker": {
+                  "internet.url": {}
+                }
               },
               {
                 "type": "null"
@@ -780,6 +783,13 @@
           },
           "score": {
             "type": "number",
+            "x-faker": {
+              "number.float": {
+                "min": 0,
+                "max": 10,
+                "fractionDigits": 4
+              }
+            },
             "title": "Score",
             "description": "A similarity score between the asked _question_ and the document."
           },
@@ -822,7 +832,17 @@
         "properties": {
           "answer": {
             "type": "string",
-            "title": "Answer"
+            "title": "Answer",
+            "x-faker": {
+              "lorem.text": {
+                "wordCount.min": 20,
+                "wordCount.max": 100
+              },
+              "lorem.paragraph": {
+                "sentenceCount.min": 3,
+                "sentenceCount.max": 10
+              }
+            }
           },
           "result_id": {
             "type": "string",
