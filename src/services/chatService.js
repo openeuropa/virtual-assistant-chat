@@ -37,15 +37,16 @@ export class ChatService {
         }),
       )
       .then((res) => {
-        const answer = new ChatMessage({
+        const message = {
           id: nanoid(),
           content: res.data.answer,
           contentType: MessageContentType.TextHtml,
           senderId: "assistant",
           direction: MessageDirection.Incoming,
           status: MessageStatus.Sent,
-        });
-        const event = new MessageEvent({ message: answer, conversationId });
+          documents: res?.data?.documents ?? {},
+        };
+        const event = new MessageEvent({ message, conversationId });
         this.eventHandlers.onMessage(event);
       });
 
