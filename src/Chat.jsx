@@ -19,6 +19,7 @@ import {
   MessageStatus,
 } from "@chatscope/use-chat";
 import { random } from "nanoid";
+import { Documents } from "./components/Documents.jsx";
 
 export const Chat = ({ user }) => {
   // Get all chat related values and methods from useChat hook
@@ -130,15 +131,18 @@ export const Chat = ({ user }) => {
               <MessageGroup key={g.id} direction={g.direction}>
                 <MessageGroup.Messages>
                   {g.messages.map((m) => (
-                    <Message
-                      key={m.id}
-                      model={{
-                        type: "html",
-                        payload: m.content,
-                        direction: m.direction,
-                        position: "normal",
-                      }}
-                    />
+                    <>
+                      <Message
+                        key={m.id}
+                        model={{
+                          type: "html",
+                          payload: m.content,
+                          direction: m.direction,
+                          position: "normal",
+                        }}
+                      />
+                      {m.documents && <Documents documents={m.documents} />}
+                    </>
                   ))}
                 </MessageGroup.Messages>
               </MessageGroup>

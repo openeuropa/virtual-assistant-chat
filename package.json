@@ -20,13 +20,15 @@
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@chatscope/use-chat": "^3.1.2",
     "axios": "^1.7.2",
+    "javascript-time-ago": "^2.5.10",
     "nanoid": "^5.0.7",
     "openapi-client-axios": "^7.5.5",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primereact": "^10.8.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-time-ago": "^7.3.3"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
