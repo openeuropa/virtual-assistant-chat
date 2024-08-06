@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
@@ -25,17 +25,21 @@ export const Documents = ({ documents }) => {
       hour12: false,
     };
 
-    let formattedDate = dateObject.toLocaleString("en-GB", options);
+    const formattedDate = dateObject.toLocaleString("en-GB", options);
     return (
-      <div>
-        <ReactTimeAgo date={dateObject} locale="en-GB" /> <br />{" "}
+      <>
+        <ReactTimeAgo date={dateObject} locale="en-GB" />
+        <br />
         <small style={{ whiteSpace: "nowrap" }}>{formattedDate}</small>
-      </div>
+      </>
     );
   };
 
+  const allowExpansion = (document) => {
+    return document.content !== null;
+  };
   const rowExpansionTemplate = (data) => {
-    return <div className="p-3">{data.content}</div>;
+    return <div className="p-3">{data.content}dfafdsa</div>;
   };
 
   return (
@@ -43,14 +47,18 @@ export const Documents = ({ documents }) => {
       <>
         <DataTable
           value={documents}
-          dataKey={"id"}
+          dataKey="id"
           showGridlines
           size={"small"}
           tableStyle={{ minWidth: "70rem" }}
+          expandedRows={expandedRows}
           rowExpansionTemplate={rowExpansionTemplate}
-          onRowToggle={(e) => setExpandedRows(e.data)}
+          onRowToggle={(e) => {
+            console.log(e);
+            setExpandedRows(e.data);
+          }}
         >
-          <Column expander={true} style={{ width: "1rem" }} />
+          <Column expander={allowExpansion} style={{ width: "1rem" }} />
           <Column field="title" header="Title"></Column>
           <Column
             field="source"
