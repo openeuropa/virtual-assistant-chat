@@ -8,7 +8,6 @@ import { Column } from "primereact/column";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ReactTimeAgo from "react-time-ago";
-import LinkTo from "@storybook/addon-links/react";
 
 export const Documents = ({ documents }) => {
   TimeAgo.addDefaultLocale(en);
@@ -52,45 +51,39 @@ export const Documents = ({ documents }) => {
 
   return (
     documents && (
-      <>
-        <DataTable
-          value={documents}
-          dataKey="id"
-          showGridlines
-          size={"small"}
-          tableStyle={{ minWidth: "70rem" }}
-          expandedRows={expandedRows}
-          rowExpansionTemplate={rowExpansionTemplate}
-          onRowToggle={(e) => {
-            console.log(e);
-            setExpandedRows(e.data);
-          }}
-        >
-          <Column expander={allowExpansion} style={{ width: "1rem" }} />
-          <Column field="title" header="Title"></Column>
-          <Column
-            field="rating"
-            header="Rating"
-            style={{ textAlign: "center" }}
-          ></Column>
-          <Column
-            field="source"
-            header="Source"
-            style={{ whiteSpace: "nowrap" }}
-          ></Column>
-          <Column
-            field="source_date"
-            header="Date"
-            body={dateTemplate}
-          ></Column>
-          <Column
-            field="source_url"
-            header="Source"
-            style={{ whiteSpace: "nowrap" }}
-            body={sourceTemplate}
-          ></Column>
-        </DataTable>
-      </>
+      <DataTable
+        value={documents}
+        dataKey="id"
+        showGridlines
+        size={"small"}
+        tableStyle={{ minWidth: "70rem" }}
+        expandedRows={expandedRows}
+        rowExpansionTemplate={rowExpansionTemplate}
+        onRowToggle={(e) => {
+          console.log(e);
+          setExpandedRows(e.data);
+        }}
+      >
+        <Column expander={allowExpansion} style={{ width: "1rem" }} />
+        <Column field="title" header="Title"></Column>
+        <Column
+          field="rating"
+          header="Rating"
+          style={{ textAlign: "center" }}
+        ></Column>
+        <Column
+          field="source"
+          header="Source"
+          style={{ whiteSpace: "nowrap" }}
+        ></Column>
+        <Column field="source_date" header="Date" body={dateTemplate}></Column>
+        <Column
+          field="source_url"
+          header="Source"
+          style={{ whiteSpace: "nowrap" }}
+          body={sourceTemplate}
+        ></Column>
+      </DataTable>
     )
   );
 };

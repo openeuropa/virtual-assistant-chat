@@ -1,10 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App url={"http://127.0.0.1:5000"} />
+    <div style={{ background: "#F3F5FB", height: "100vh" }}>
+      <App
+        url={"http://127.0.0.1:5000"}
+        style={{
+          width: "70%",
+          height: "80vh",
+          paddingTop: "10vh",
+          margin: "0 auto",
+        }}
+      />
+    </div>
   </React.StrictMode>,
 );

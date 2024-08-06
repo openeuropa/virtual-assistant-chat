@@ -1,3 +1,5 @@
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
