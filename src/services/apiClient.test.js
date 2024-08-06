@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
-import newInstance from "./apiClient.js";
+import * as client from "./apiClient.js";
 
-test("reada specs correctly", async () => {
-  const api = await newInstance("");
-  api.init();
+test("read specs correctly", async () => {
+  const api = await client.getInstance("");
+  await api.init();
   expect(api.document.openapi).toBe("3.1.0");
 });

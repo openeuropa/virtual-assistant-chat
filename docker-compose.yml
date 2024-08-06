@@ -3,6 +3,6 @@ services:
     image: stoplight/prism
     ports:
       - '5000:4010'
-    entrypoint: ["node", "dist/index.js", "-h", "0.0.0.0", "mock", "/resources/openapi.json"]
+    entrypoint: ["node", "dist/index.js", "-d", "-h", "0.0.0.0", "mock", "/resources/openapi.json"]
     volumes:
-      - ./resources:/resources
+      - ./src/resources:/resources
