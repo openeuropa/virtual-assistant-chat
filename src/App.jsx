@@ -1,4 +1,4 @@
-import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import "./styles/main.scss";
 import {
   BasicStorage,
   ChatProvider,
@@ -15,7 +15,7 @@ import { AutoDraft } from "@chatscope/use-chat/dist/enums/AutoDraft";
 import { ChatService } from "./services/chatService.js";
 import { Chat } from "./Chat.jsx";
 
-function App({ url }) {
+function App({ url, style }) {
   const messageIdGenerator = () => nanoid();
   const groupIdGenerator = () => nanoid();
 
@@ -71,9 +71,7 @@ function App({ url }) {
   storage.setActiveConversation(conversationId);
 
   return (
-    <div
-      style={{ position: "absolute", width: "100%", height: "100vh", top: 0 }}
-    >
+    <div style={style}>
       <ChatProvider
         serviceFactory={serviceFactory}
         storage={storage}
