@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+import React from "react";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ReactTimeAgo from "react-time-ago";
+import Table from "rc-table";
 
 export const Documents = ({ documents }) => {
   TimeAgo.addDefaultLocale(en);
 
   const columns = [
     {
-      name: "Title",
-      selector: (row) => row.title,
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      name: "Rating",
-      selector: (row) => row.rating,
+      title: "Rating",
+      dataIndex: "rating",
+      key: "rating",
+      width: 150,
     },
     {
-      name: "Pubication date",
-      selector: (row) => row.source_date,
-      cell: (row) => {
+      title: "Publication date",
+      key: "source_date",
+      render: (row) => {
         const dateObject = new Date(row.source_date);
         let options = {
           day: "2-digit",
@@ -41,9 +44,9 @@ export const Documents = ({ documents }) => {
       },
     },
     {
-      name: "Source",
-      selector: (row) => row.source,
-      cell: (row) => (
+      title: "Source",
+      key: "source",
+      render: (row) => (
         <a href={row.source_url} target={"_blank"}>
           Visit source
         </a>
@@ -51,5 +54,15 @@ export const Documents = ({ documents }) => {
     },
   ];
 
-  return <DataTable theme="light" columns={columns} data={documents} />;
+  return (
+    <Table
+      columns={columns}
+      rowKey={"id"}
+      data={documents}
+      expandable={{
+        expandRowByClick: true,
+        expandedRowRender: (row) => <p>extra: {row.content}</p>,
+      }}
+    />
+  );
 };
