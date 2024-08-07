@@ -12,18 +12,7 @@ export const Documents = ({ documents }) => {
   const columns = [
     {
       title: "Title",
-      dataIndex: "title",
       key: "title",
-    },
-    {
-      title: "Rating",
-      dataIndex: "rating",
-      key: "rating",
-      width: 150,
-    },
-    {
-      title: "Publication date",
-      key: "source_date",
       render: (row) => {
         const dateObject = new Date(row.source_date);
         let options = {
@@ -34,25 +23,43 @@ export const Documents = ({ documents }) => {
           minute: "2-digit",
           hour12: false,
         };
-
         const formattedDate = dateObject.toLocaleString("en-GB", options);
+
+        const ratingColorMap = {
+          A: "bg-success",
+          B: "bg-warning",
+          C: "bg-danger",
+          D: "bg-danger",
+          F: "bg-danger",
+        };
+
+        const getColorClass = (rating) => {
+          return ratingColorMap[rating] || "bg-secondary";
+        };
+
         return (
-          <div>
-            <ReactTimeAgo date={dateObject} locale="en-GB" />
-            <br />
-            <small style={{ whiteSpace: "nowrap" }}>{formattedDate}</small>
-          </div>
+          <>
+            <div className="text-muted">
+              <span
+                className={`badge ${getColorClass(row.rating)}`}
+                style={{ marginRight: "5px" }}
+              >
+                Rating {row.rating}
+              </span>
+
+              <small style={{ whiteSpace: "nowrap" }}>
+                Published <ReactTimeAgo date={dateObject} locale="en-GB" /> on{" "}
+                {formattedDate}
+              </small>
+            </div>
+            <b>
+              <a href={row.source_url} target={"_blank"}>
+                {row.title}
+              </a>
+            </b>
+          </>
         );
       },
-    },
-    {
-      title: "Source",
-      key: "source",
-      render: (row) => (
-        <a href={row.source_url} target={"_blank"}>
-          Open
-        </a>
-      ),
     },
   ];
 
@@ -68,7 +75,7 @@ export const Documents = ({ documents }) => {
           return (
             <a
               onClick={(e) => props.onExpand(props.record, e)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", paddingLeft: 5, paddingRight: 5 }}
             >
               <img src={!props.expanded ? IconChevronRight : IconChevronDown} />
             </a>

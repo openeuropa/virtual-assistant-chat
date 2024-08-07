@@ -178,7 +178,7 @@ export const Default = {
         content:
           "A little over four years ago, we launched what we called the European Green Deal, an overarching, umbrella plan to help us manage this transition in Europe – more precisely, to become the first climate neutral continent by 2050, while growing our economy.\nOver the first phase of the Green Deal, we have steadily put in place the credible targets and regulations necessary to bring about the required change.\nWe have unleashed the largest funding scheme in our history, to mobilise at least 1 trillion euros in sustainable investments over the next few years.\nOur focus has now shifted to action. Turning the measures we have agreed upon into reality.\nThe challenge is monumental. And we need everybody on board.\nNow, we will apply a new working relationship with industry – so that its transformation and competitiveness go hand in hand.\nWe work on a new consensus on the future of agriculture – so that it is sustainable and generates decent incomes for its workers.\nAnd social acceptance – by making green solutions accessible to everyone, and by creating quality jobs at all skill levels.\n\nSo, what will Europe's journey look like in the coming years?\nFirst, many of you will be familiar with the EU's Single Market. This is perhaps the biggest asset we have, our greatest tool for investment, and a catalyst for economic growth for more than 30 years.\n",
         score: 0.056976318359375,
-        rating: "E",
+        rating: "B",
         keywords: null,
       },
       {
