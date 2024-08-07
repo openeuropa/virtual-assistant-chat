@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/main.scss";
 import {
   BasicStorage,
   ChatProvider,

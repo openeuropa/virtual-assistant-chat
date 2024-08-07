@@ -1,3 +1,5 @@
+import IconChevronRight from "bootstrap-icons/icons/chevron-right.svg";
+import IconChevronDown from "bootstrap-icons/icons/chevron-down.svg";
 import React from "react";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -48,7 +50,7 @@ export const Documents = ({ documents }) => {
       key: "source",
       render: (row) => (
         <a href={row.source_url} target={"_blank"}>
-          Visit source
+          Open
         </a>
       ),
     },
@@ -59,9 +61,19 @@ export const Documents = ({ documents }) => {
       columns={columns}
       rowKey={"id"}
       data={documents}
+      className={"table"}
       expandable={{
-        expandRowByClick: true,
-        expandedRowRender: (row) => <p>extra: {row.content}</p>,
+        expandedRowRender: (row) => <p>{row.content}</p>,
+        expandIcon: (props) => {
+          return (
+            <a
+              onClick={(e) => props.onExpand(props.record, e)}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={!props.expanded ? IconChevronRight : IconChevronDown} />
+            </a>
+          );
+        },
       }}
     />
   );
