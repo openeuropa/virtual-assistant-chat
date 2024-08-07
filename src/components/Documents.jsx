@@ -11,7 +11,7 @@ export const Documents = ({ documents }) => {
 
   const columns = [
     {
-      title: "Title",
+      title: "Documents",
       key: "title",
       render: (row) => {
         const dateObject = new Date(row.source_date);
@@ -39,13 +39,13 @@ export const Documents = ({ documents }) => {
 
         return (
           <>
-            <div className="text-muted">
-              <span
-                className={`badge ${getColorClass(row.rating)}`}
+            <div className="cs-documents-meta">
+              <small
+                className={`badge badge-sm ${getColorClass(row.rating)}`}
                 style={{ marginRight: "5px" }}
               >
                 Rating {row.rating}
-              </span>
+              </small>
 
               <small style={{ whiteSpace: "nowrap" }}>
                 Published <ReactTimeAgo date={dateObject} locale="en-GB" /> on{" "}
@@ -68,7 +68,7 @@ export const Documents = ({ documents }) => {
       columns={columns}
       rowKey={"id"}
       data={documents}
-      className={"table"}
+      prefixCls={"cs-documents"}
       expandable={{
         expandedRowRender: (row) => <p>{row.content}</p>,
         expandIcon: (props) => {
