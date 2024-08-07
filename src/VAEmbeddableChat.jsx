@@ -15,7 +15,7 @@ import { AutoDraft } from "@chatscope/use-chat/dist/enums/AutoDraft";
 import { ChatService } from "./services/chatService.js";
 import { Chat } from "./Chat.jsx";
 
-function App({ url, style }) {
+function VAEmbeddableChat({ url, style }) {
   const messageIdGenerator = () => nanoid();
   const groupIdGenerator = () => nanoid();
 
@@ -88,4 +88,4 @@ function App({ url, style }) {
   );
 }
 
-export default App;
+export default VAEmbeddableChat;

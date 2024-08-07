@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/va-embeddable-chat.umd.cjs",
+  "module": "./dist/va-embeddable-chat.js",
   "scripts": {
     "dev": "vite --host=127.0.0.1",
     "build": "vite build",
