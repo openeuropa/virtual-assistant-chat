@@ -1,4 +1,4 @@
-import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import "./App.scss";
 import {
   BasicStorage,
   ChatProvider,
