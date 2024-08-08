@@ -131,7 +131,7 @@ export const Chat = ({ user }) => {
               <MessageGroup key={g.id} direction={g.direction}>
                 <MessageGroup.Messages>
                   {g.messages.map((m) => (
-                    <>
+                    <div key={`m-${m.id}`}>
                       <Message
                         key={m.id}
                         model={{
@@ -142,7 +142,7 @@ export const Chat = ({ user }) => {
                         }}
                       />
                       {m.documents && <Documents documents={m.documents} />}
-                    </>
+                    </div>
                   ))}
                 </MessageGroup.Messages>
               </MessageGroup>

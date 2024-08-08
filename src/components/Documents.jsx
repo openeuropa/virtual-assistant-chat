@@ -1,14 +1,10 @@
 import IconChevronRight from "bootstrap-icons/icons/chevron-right.svg";
 import IconChevronDown from "bootstrap-icons/icons/chevron-down.svg";
 import React from "react";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
 import ReactTimeAgo from "react-time-ago";
 import Table from "rc-table";
 
 export const Documents = ({ documents }) => {
-  TimeAgo.addDefaultLocale(en);
-
   const columns = [
     {
       title: "Documents",

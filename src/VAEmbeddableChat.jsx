@@ -14,8 +14,12 @@ import { nanoid } from "nanoid";
 import { AutoDraft } from "@chatscope/use-chat/dist/enums/AutoDraft";
 import { ChatService } from "./services/chatService.js";
 import { Chat } from "./Chat.jsx";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 function VAEmbeddableChat({ url, style }) {
+  TimeAgo.addDefaultLocale(en);
+
   const messageIdGenerator = () => nanoid();
   const groupIdGenerator = () => nanoid();
 

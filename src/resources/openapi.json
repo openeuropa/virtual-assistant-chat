@@ -769,10 +769,8 @@
           "id": {
             "anyOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "null"
+                "type": "string",
+                "format": "uuid"
               }
             ],
             "title": "Document ID"
@@ -819,6 +817,7 @@
         },
         "type": "object",
         "required": [
+          "id",
           "title",
           "source",
           "source_date",
