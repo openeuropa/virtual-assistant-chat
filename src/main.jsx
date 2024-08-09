@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           paddingTop: "10vh",
           margin: "0 auto",
         }}
+        maxMessages={100}
       />
     </div>
   </React.StrictMode>,

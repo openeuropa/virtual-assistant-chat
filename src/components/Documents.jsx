@@ -1,17 +1,13 @@
 import IconChevronRight from "bootstrap-icons/icons/chevron-right.svg";
 import IconChevronDown from "bootstrap-icons/icons/chevron-down.svg";
-import React from "react";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
+import React, { memo } from "react";
 import ReactTimeAgo from "react-time-ago";
 import Table from "rc-table";
 
 export const Documents = ({ documents }) => {
-  TimeAgo.addDefaultLocale(en);
-
   const columns = [
     {
-      title: "Title",
+      title: "Documents",
       key: "title",
       render: (row) => {
         const dateObject = new Date(row.source_date);
@@ -39,13 +35,13 @@ export const Documents = ({ documents }) => {
 
         return (
           <>
-            <div className="text-muted">
-              <span
-                className={`badge ${getColorClass(row.rating)}`}
+            <div className="cs-documents-meta">
+              <small
+                className={`badge badge-sm ${getColorClass(row.rating)}`}
                 style={{ marginRight: "5px" }}
               >
                 Rating {row.rating}
-              </span>
+              </small>
 
               <small style={{ whiteSpace: "nowrap" }}>
                 Published <ReactTimeAgo date={dateObject} locale="en-GB" /> on{" "}
@@ -63,12 +59,16 @@ export const Documents = ({ documents }) => {
     },
   ];
 
+  return <MemoizedTable columns={columns} documents={documents} />;
+};
+
+const MemoizedTable = memo(function MemoizedTable({ columns, documents }) {
   return (
     <Table
       columns={columns}
       rowKey={"id"}
       data={documents}
-      className={"table"}
+      prefixCls={"cs-documents"}
       expandable={{
         expandedRowRender: (row) => <p>{row.content}</p>,
         expandIcon: (props) => {
@@ -84,4 +84,39 @@ export const Documents = ({ documents }) => {
       }}
     />
   );
-};
+}, compareDocumentArrays);
+
+/**
+ * Function to compare two documents based on specified properties.
+ *
+ * @param arr1
+ * @param arr2
+ * @returns {boolean}
+ */
+function compareDocumentArrays(arr1, arr2) {
+  function compareDocuments(doc1, doc2) {
+    return (
+      doc1.source_date === doc2.source_date &&
+      doc1.rating === doc2.rating &&
+      doc1.title === doc2.title &&
+      doc1.id === doc2.id
+    );
+  }
+
+  // First, check if both arrays have the same length
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  // Compare each document
+  for (let i = 0; i < arr1.length; i++) {
+    const doc1 = arr1[i];
+    const doc2 = arr2[i];
+
+    if (!compareDocuments(doc1, doc2)) {
+      return false;
+    }
+  }
+
+  return true;
+}

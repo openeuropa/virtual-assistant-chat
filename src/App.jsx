@@ -14,8 +14,12 @@ import { nanoid } from "nanoid";
 import { AutoDraft } from "@chatscope/use-chat/dist/enums/AutoDraft";
 import { ChatService } from "./services/chatService.js";
 import { Chat } from "./Chat.jsx";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
-function App({ url, style }) {
+function App({ url, style = {}, maxMessages = 100 }) {
+  TimeAgo.addDefaultLocale(en);
+
   const messageIdGenerator = () => nanoid();
   const groupIdGenerator = () => nanoid();
 
@@ -82,7 +86,7 @@ function App({ url, style }) {
           autoDraft: AutoDraft.Save | AutoDraft.Restore,
         }}
       >
-        <Chat user={defaultUser} />
+        <Chat user={defaultUser} maxMessages={maxMessages} />
       </ChatProvider>
     </div>
   );

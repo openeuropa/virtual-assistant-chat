@@ -5,14 +5,11 @@
 // Configuration
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/utilities";
 
 @import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
 @import "bootstrap/scss/tables";
 @import "bootstrap/scss/badge";
 
@@ -23,18 +20,52 @@
 @import "bootstrap/scss/utilities/api";
 
 .#{$prefix}-message {
-  line-height: 1.25rem;
+  line-height: $message-input-content-editor-container-line-height;
 }
 
-.rc-table table {
+.#{$prefix}-documents table {
+  margin-top: 1em;
+  caption-side: bottom;
+  border-collapse: collapse;
+  max-width: 750px;
+
+  thead {
+    text-align: left;
+  }
+  thead,
+  tbody,
+  tfoot,
+  tr,
+  td,
+  th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: $table-border-width;
+    font-family: $expansion-panel-font-family;
+    font-size: $expansion-panel-font-size;
+    font-variant: $expansion-panel-font-variant;
+    line-height: $message-input-content-editor-container-line-height;
+    a {
+      color: $primary;
+    }
+  }
+
   @extend .table;
-  @extend .table-sm;
-  @extend .table-bordered;
 }
 
-.rc-table-row-expand-icon {
+.#{$prefix}-documents-table-row-expand-icon {
   display: block;
   height: 20px;
   width: 20px;
   background: red;
+}
+.#{$prefix}-documents-row-expand-icon-cell {
+  width: 25px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cs-documents-meta {
+  @extend .text-muted;
+  margin-bottom: 0.25em;
 }
