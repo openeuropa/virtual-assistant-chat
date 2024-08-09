@@ -17,7 +17,7 @@ import { Chat } from "./Chat.jsx";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 
-function VAEmbeddableChat({ url, style, maxMessages = 100 }) {
+function VAEmbeddableChat({ url, style = {}, maxMessages = 100 }) {
   TimeAgo.addDefaultLocale(en);
 
   const messageIdGenerator = () => nanoid();
