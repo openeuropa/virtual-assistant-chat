@@ -40,8 +40,8 @@ build:
     - yarn build
   artifacts:
     paths:
-      - "dist/va-embeddable-chat.css"
-      - "dist/va-embeddable-chat.js"
+      - "dist/virtual-assistant-chat.css"
+      - "dist/virtual-assistant-chat.js"
     reports:
       # export the environment statement, so we can access it in the release stage.
       dotenv: build.env
@@ -61,8 +61,8 @@ release:
     assets:
       links:
         - name: 'JavaScript'
-          url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/va-embeddable-chat.js'
+          url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/virtual-assistant-chat.js'
         - name: 'CSS'
-          url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/va-embeddable-chat.css'
+          url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/virtual-assistant-chat.css'
   only:
     - tags

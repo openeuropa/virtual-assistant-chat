@@ -6,8 +6,7 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/va-embeddable-chat.umd.cjs",
-  "module": "./dist/va-embeddable-chat.js",
+  "module": "./dist/virtual-assistant-chat.js",
   "scripts": {
     "dev": "vite --host=127.0.0.1",
     "build": "vite build",

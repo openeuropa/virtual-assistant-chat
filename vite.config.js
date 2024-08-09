@@ -17,12 +17,12 @@ export default defineConfig((env) => ({
       entry: resolve(__dirname, "src/App.jsx"),
       formats: ["es"],
       name: "App",
-      fileName: "va-embeddable-chat",
+      fileName: "virtual-assistant-chat",
     },
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
-        assetFileNames: "va-embeddable-chat.[ext]",
+        assetFileNames: "virtual-assistant-chat.[ext]",
         globals: {
           react: "React",
         },
