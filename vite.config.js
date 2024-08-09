@@ -14,14 +14,15 @@ export default defineConfig((env) => ({
   build: {
     lib: {
       // eslint-disable-next-line no-undef
-      entry: resolve(__dirname, "src/VAEmbeddableChat.jsx"),
+      entry: resolve(__dirname, "src/App.jsx"),
       formats: ["es"],
-      name: "VAEmbeddableChat",
+      name: "App",
       fileName: "va-embeddable-chat",
     },
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
+        assetFileNames: "va-embeddable-chat.[ext]",
         globals: {
           react: "React",
         },
