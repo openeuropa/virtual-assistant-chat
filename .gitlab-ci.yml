@@ -10,6 +10,14 @@ yarn:
   stage: yarn
   script:
     - yarn install
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
 
 test:
   stage: test
@@ -24,6 +32,7 @@ build:
   stage: build
   dependencies:
     - test
+    - yarn
   before_script:
     - echo $CI_JOB_ID
     - echo BUILD_JOB_ID=$CI_JOB_ID >> build.env
