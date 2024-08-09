@@ -30,6 +30,9 @@ test:
 
 build:
   stage: build
+  before_script:
+    - echo $CI_JOB_ID
+    - echo BUILD_JOB_ID=$CI_JOB_ID >> build.env
   script:
     - yarn build
   artifacts:
@@ -37,8 +40,8 @@ build:
       - "dist/va-embeddable-chat.css"
       - "dist/va-embeddable-chat.js"
     reports:
-      # export the environment statement so we can access it in the release stage
-      dotenv: CI_JOB_ID.env
+      # export the environment statement, so we can access it in the release stage.
+      dotenv: build.env
 
 release:
   stage: release
@@ -47,7 +50,7 @@ release:
     - job: build
       artifacts: true
   script:
-    - echo "Application successfully released."
+    - echo Releasing artifacts created in Job $GE_JOB_ID
   release:
     name: 'Release artifact from $CI_COMMIT_SHORT_SHA'
     description: 'Created using the release-cli'
