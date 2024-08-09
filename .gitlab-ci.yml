@@ -3,6 +3,8 @@ image: node
 stages:
   - yarn
   - test
+  - build
+  - release
 
 yarn:
   stage: yarn
@@ -25,3 +27,36 @@ test:
     - yarn lint
     - yarn prettier-check
     - yarn test
+
+build:
+  stage: build
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - "dist/va-embeddable-chat.css"
+      - "dist/va-embeddable-chat.js"
+    reports:
+      # export the environment statement so we can access it in the release stage
+      dotenv: CI_JOB_ID.env
+
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+    - job: build
+      artifacts: true
+  script:
+    - echo "Application successfully released."
+  release:
+    name: 'Release artifact from $CI_COMMIT_SHORT_SHA'
+    description: 'Created using the release-cli'
+    tag_name: '$CI_COMMIT_SHORT_SHA'
+    assets:
+      links:
+        - name: 'JavaScript'
+          url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/va-embeddable-chat.js'
+        - name: 'CSS'
+          url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/va-embeddable-chat.css'
+  only:
+    - D8TSDT-518-library-mode
