@@ -30,6 +30,8 @@ test:
 
 build:
   stage: build
+  dependencies:
+    - test
   before_script:
     - echo $CI_JOB_ID
     - echo BUILD_JOB_ID=$CI_JOB_ID >> build.env
@@ -52,9 +54,9 @@ release:
   script:
     - echo Releasing artifacts created in Job $GE_JOB_ID
   release:
-    name: 'Release artifact from $CI_COMMIT_SHORT_SHA'
-    description: 'Created using the release-cli'
-    tag_name: '$CI_COMMIT_SHORT_SHA'
+    name: 'Release $CI_COMMIT_TAG'
+    description: 'Embeddable Virtual Assistant chat.'
+    tag_name: '$CI_COMMIT_TAG'
     assets:
       links:
         - name: 'JavaScript'
@@ -62,4 +64,4 @@ release:
         - name: 'CSS'
           url: '${CI_PROJECT_URL}/-/jobs/${BUILD_JOB_ID}/artifacts/file/dist/va-embeddable-chat.css'
   only:
-    - D8TSDT-518-library-mode
+    - tags
