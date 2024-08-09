@@ -21,7 +21,7 @@ import {
 import { random } from "nanoid";
 import { Documents } from "./components/Documents.jsx";
 
-export const Chat = ({ user }) => {
+export const Chat = ({ user, maxMessages }) => {
   // Get all chat related values and methods from useChat hook
   const {
     currentMessages,
@@ -127,7 +127,7 @@ export const Chat = ({ user }) => {
         )}
         <MessageList typingIndicator={getTypingIndicator()}>
           {activeConversation &&
-            currentMessages.map((g) => (
+            currentMessages.slice(-1 * maxMessages).map((g) => (
               <MessageGroup key={g.id} direction={g.direction}>
                 <MessageGroup.Messages>
                   {g.messages.map((m) => (
