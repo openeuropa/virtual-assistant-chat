@@ -15,16 +15,18 @@ export default defineConfig((env) => ({
     lib: {
       // eslint-disable-next-line no-undef
       entry: resolve(__dirname, "src/App.jsx"),
-      formats: ["es"],
-      name: "App",
+      formats: ["umd"],
+      name: "VirtualAssistant",
       fileName: "virtual-assistant-chat",
     },
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
+        entryFileNames: "virtual-assistant-chat.js",
         assetFileNames: "virtual-assistant-chat.[ext]",
         globals: {
           react: "React",
+          "react-dom": "ReactDOM",
         },
       },
     },
