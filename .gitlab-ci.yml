@@ -53,9 +53,9 @@ release:
     - job: build
       artifacts: true
   script:
-    - echo Releasing artifacts created in Job $GE_JOB_ID
+    - echo Releasing artifacts created in Job $BUILD_JOB_ID
   release:
-    name: 'Release $CI_COMMIT_TAG'
+    name: 'Release $CI_COMMIT_TAG - Job ID $BUILD_JOB_ID'
     description: 'Embeddable Virtual Assistant chat.'
     tag_name: '$CI_COMMIT_TAG'
     assets:
