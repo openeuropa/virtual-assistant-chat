@@ -1,15 +1,19 @@
-image: node
+image: node:21.5.0
 
 stages:
-  - yarn
+  - pnpm
   - test
   - build
   - release
 
-yarn:
-  stage: yarn
+pnpm:
+  stage: pnpm
+  before_script:
+    - npm install -g pnpm
+    - node -v
+    - pnpm -v
   script:
-    - yarn install
+    - pnpm install
   cache:
     paths:
       - node_modules/
@@ -22,22 +26,25 @@ yarn:
 test:
   stage: test
   dependencies:
-    - yarn
+    - pnpm
+  before_script:
+    - npm install -g pnpm
   script:
-    - yarn lint
-    - yarn prettier-check
-    - yarn test
+    - pnpm run lint
+    - pnpm run prettier-check
+    - pnpm run test
 
 build:
   stage: build
   dependencies:
     - test
-    - yarn
+    - pnpm
   before_script:
     - echo $CI_JOB_ID
     - echo BUILD_JOB_ID=$CI_JOB_ID >> build.env
+    - npm install -g pnpm
   script:
-    - yarn build
+    - pnpm run build
   artifacts:
     paths:
       - "dist/virtual-assistant-chat.css"

@@ -21,13 +21,13 @@ cd va-chat
 Install Dependencies:
 
 ```sh
-yarn install
+pnpm install
 ```
 
 Start the Development Server:
 
 ```sh
-yarn dev
+pnpm run dev
 ```
 
 Open your browser and navigate to `http://localhost:5173/` to see your Vite application in action.
@@ -37,7 +37,7 @@ Open your browser and navigate to `http://localhost:5173/` to see your Vite appl
 To create a production build of your application, run:
 
 ```sh
-yarn build
+pnpm run build
 ```
 
 The output will be in the `dist` directory.
@@ -47,7 +47,7 @@ The output will be in the `dist` directory.
 Run tests with:
 
 ```sh
-yarn test
+pnpm run test
 ```
 
 ### Learn More

@@ -13,6 +13,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
+    "cypress-run": "cypress run --headless",
+    "cypress-open": "cypress open --e2e --browser chrome",
     "prepare": "husky",
     "prettier-write": "prettier --write ./src/** *.js *.cjs",
     "prettier-check": "prettier --check ./src/** *.js *.cjs",
