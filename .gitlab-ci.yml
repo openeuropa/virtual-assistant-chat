@@ -1,44 +1,32 @@
 image: node:21.5.0
 
+.before_script: &before
+  - npm install -g pnpm
+  - pnpm install
+  - node -v
+  - pnpm -v
+
 stages:
-  - pnpm
   - test
   - build
   - release
 
-pnpm:
-  stage: pnpm
-  before_script:
-    - npm install -g pnpm
-    - node -v
-    - pnpm -v
-  script:
-    - pnpm install
-  cache:
-    paths:
-      - node_modules/
-      - ~/.cache/Cypress
-  artifacts:
-    expire_in: 1 days
-    when: on_success
-    paths:
-      - node_modules/
-      - ~/.cache/Cypress
-
 unit: &test
   stage: test
-  dependencies:
-    - pnpm
-  before_script:
-    - npm install -g pnpm
+  before_script: *before
   script:
     - pnpm run test
 
 cypress:
   <<: *test
+  image: cypress/browsers
   script:
-    - pnpm install
+    - pnpm run dev &
     - pnpm run cypress-run
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    paths:
+      - cypress/screenshots/*
 
 lint:
   <<: *test
@@ -57,12 +45,12 @@ build:
     - cypress
     - lint
     - prettier
-    - pnpm
   before_script:
     - echo $CI_JOB_ID
     - echo BUILD_JOB_ID=$CI_JOB_ID >> build.env
     - npm install -g pnpm
   script:
+    - pnpm install
     - pnpm run build
   artifacts:
     paths:
