@@ -17,11 +17,13 @@ pnpm:
   cache:
     paths:
       - node_modules/
+      - ~/.cache/Cypress
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
       - node_modules/
+      - ~/.cache/Cypress
 
 unit: &test
   stage: test
@@ -35,6 +37,7 @@ unit: &test
 cypress:
   <<: *test
   script:
+    - pnpm install
     - pnpm run cypress-run
 
 lint:
@@ -47,11 +50,13 @@ prettier:
   script:
     - pnpm run prettier-check
 
-
 build:
   stage: build
   dependencies:
-    - test
+    - unit
+    - cypress
+    - lint
+    - prettier
     - pnpm
   before_script:
     - echo $CI_JOB_ID
