@@ -23,16 +23,30 @@ pnpm:
     paths:
       - node_modules/
 
-test:
+unit: &test
   stage: test
   dependencies:
     - pnpm
   before_script:
     - npm install -g pnpm
   script:
-    - pnpm run lint
-    - pnpm run prettier-check
     - pnpm run test
+
+cypress:
+  <<: *test
+  script:
+    - pnpm run cypress-run
+
+lint:
+  <<: *test
+  script:
+    - pnpm run lint
+
+prettier:
+  <<: *test
+  script:
+    - pnpm run prettier-check
+
 
 build:
   stage: build
