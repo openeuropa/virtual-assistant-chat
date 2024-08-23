@@ -53,6 +53,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Create ZIP Archive
+        run: zip -j ./dist/virtual-assistant-chat.zip ./dist/virtual-assistant-chat.css ./dist/virtual-assistant-chat.js
+
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -83,5 +86,15 @@ jobs:
           asset_path: dist/virtual-assistant-chat.js
           asset_name: virtual-assistant-chat-${{ github.ref_name }}.js
           asset_content_type: application/javascript
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload ZIP
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/virtual-assistant-chat.zip
+          asset_name: virtual-assistant-chat-${{ github.ref_name }}.zip
+          asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
