@@ -1,0 +1,74 @@
+name: Build and test
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    name: Build and Test
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.17.0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.7.1
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Cache pnpm store and cypress binary
+        with:
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Run application
+        run: pnpm dev &
+
+      - name: Coding standards
+        run: |
+          pnpm lint
+          pnpm prettier-check
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Cypress
+        run: pnpm cypress-run
+
+      - name: Archive Cypress Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots

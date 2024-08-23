@@ -1,0 +1,28 @@
+{
+  "answer": "This is a mocked answer",
+  "consequatf": 43007956.31982362,
+  "documents": [
+    {
+      "id": "80081c40-dcc6-7a24-15a9-5092924b2b27",
+      "title": "First document",
+      "source": "Press Corner",
+      "source_date": "2024-05-23T16:00:43+02:00",
+      "content": "This is the content of the first document",
+      "score": 0.3549984323,
+      "rating": "B",
+      "source_url": "https://example.com/1"
+    },
+    {
+      "id": "56009c9f-a60f-e660-8090-2ec6ba5796c0",
+      "title": "Second document",
+      "source": "Press Corner",
+      "source_date": "2024-06-10T17:00:00+02:00",
+      "content": "This is the content of the second document",
+      "score": 0.81494140625,
+      "rating": "A",
+      "source_url": "https://example.com/2"
+    }
+  ],
+  "non_10": "amet sed magna commodo",
+  "result_id": "enim ea sunt"
+}
