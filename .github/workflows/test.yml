@@ -55,7 +55,12 @@ jobs:
       - name: Run application
         run: pnpm dev &
 
-      - name: Test
+      - name: Coding standards
+        run: |
+          pnpm lint
+          pnpm prettier-check
+
+      - name: Unit tests
         run: pnpm test
 
       - name: Cypress
