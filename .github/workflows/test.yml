@@ -65,3 +65,10 @@ jobs:
 
       - name: Cypress
         run: pnpm cypress-run
+
+      - name: Archive Cypress Screenshots
+        if: failure()  # Only if the previous step failed
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots  # Path to the screenshots folder
