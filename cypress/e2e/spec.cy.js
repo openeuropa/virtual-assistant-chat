@@ -31,7 +31,7 @@ describe("chat", () => {
         )
         .should(
           "include.text",
-          "Published 3 months ago on 23 May 2024 at 16:00",
+          "Rating BPublished 3 months ago on 23 May 2024",
         );
       cy.get('tr[data-row-key="56009c9f-a60f-e660-8090-2ec6ba5796c0"]')
         .should(
@@ -42,7 +42,7 @@ describe("chat", () => {
           "include.html",
           '<a href="https://example.com/2" target="_blank">Second document</a>',
         )
-        .should("include.text", "2 months ago on 10 June 2024 at 17:00");
+        .should("include.text", "2 months ago on 10 June 2024");
 
       // Assert that content toggling works.
       cy.get("td.cs-documents-cell.cs-documents-row-expand-icon-cell a")

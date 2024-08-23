@@ -16,8 +16,8 @@
     "cypress-run": "cypress run --headless",
     "cypress-open": "cypress open --e2e --browser chrome",
     "prepare": "husky",
-    "prettier-write": "prettier --write ./cypress/** ./src/** *.js *.cjs",
-    "prettier-check": "prettier --check  ./cypress/** ./src/** *.js *.cjs",
+    "prettier-write": "prettier --write ./cypress/e2e/** ./src/** *.js *.cjs",
+    "prettier-check": "prettier --check  ./cypress/e2e/** ./src/** *.js *.cjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
