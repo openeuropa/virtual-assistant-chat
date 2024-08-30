@@ -1,4 +1,5 @@
 import "./styles/main.scss";
+import vaAvatar from "./assets/va-avatar.svg";
 import {
   BasicStorage,
   ChatProvider,
@@ -33,12 +34,7 @@ function App({ url, style = {}, maxMessages = 100 }) {
   const defaultUser = new User({
     id: "Me",
     presence: new Presence({ status: UserStatus.Available, description: "" }),
-    firstName: "",
-    lastName: "",
     username: "Me",
-    email: "",
-    avatar: "",
-    bio: "",
   });
 
   function createConversation(id, name) {
@@ -60,13 +56,12 @@ function App({ url, style = {}, maxMessages = 100 }) {
   storage.addUser(
     new User({
       id: assistantName,
-      presence: new Presence({ status: UserStatus.Available, description: "" }),
-      firstName: "",
-      lastName: "",
+      presence: new Presence({
+        status: UserStatus.Unavailable,
+        description: "",
+      }),
       username: assistantName,
-      email: "",
-      avatar: "",
-      bio: "",
+      avatar: vaAvatar,
     }),
   );
 

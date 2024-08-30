@@ -122,7 +122,16 @@ export const Chat = ({ user, maxMessages }) => {
       <ChatContainer>
         {activeConversation && (
           <ConversationHeader>
-            <ConversationHeader.Content userName={currentUserName} />
+            {currentUserAvatar}
+            <ConversationHeader.Content
+              userName={currentUserName}
+              info={
+                <TypingIndicator
+                  content={"Is typing..."}
+                  style={{ marginTop: 5 }}
+                ></TypingIndicator>
+              }
+            />
           </ConversationHeader>
         )}
         <MessageList typingIndicator={getTypingIndicator()}>
