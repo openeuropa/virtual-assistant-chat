@@ -1,6 +1,3 @@
-// Import ChatScope SCSS.
-@import "@chatscope/chat-ui-kit-styles/themes/default/main.scss";
-
 // Import Bootstrap SCSS.
 // Configuration
 @import "bootstrap/scss/functions";
@@ -19,10 +16,6 @@
 // Utilities
 @import "bootstrap/scss/utilities/api";
 
-.#{$prefix}-message {
-  line-height: $message-input-content-editor-container-line-height;
-}
-
 .#{$prefix}-documents table {
   margin-top: 1em;
   caption-side: bottom;
@@ -40,13 +33,7 @@
   th {
     border-color: inherit;
     border-style: solid;
-    border-width: $table-border-width;
-    font-family: $expansion-panel-font-family;
-    font-size: $expansion-panel-font-size;
-    font-variant: $expansion-panel-font-variant;
-    line-height: $message-input-content-editor-container-line-height;
     a {
-      color: $primary;
     }
   }
 

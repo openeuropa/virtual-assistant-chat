@@ -11,13 +11,6 @@ It enables site editors to interact with an AI virtual assistant directly from t
 
 ### Installation
 
-Clone the Repository:
-
-```sh
-git clone https://git.fpfis.tech.ec.europa.eu:ademarco/va-chat.git
-cd va-chat
-```
-
 Install Dependencies:
 
 ```sh
