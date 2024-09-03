@@ -37,7 +37,7 @@ describe("chat", () => {
         )
         .should(
           "include.text",
-          "Rating BPublished 4 months ago on 23 May 2024 at 16:00",
+          "Rating BPublished 4 months ago on 23 May 2024",
         );
       cy.get('tr[data-row-key="56009c9f-a60f-e660-8090-2ec6ba5796c0"]')
         .should(
@@ -50,7 +50,7 @@ describe("chat", () => {
         )
         .should(
           "include.text",
-          "Rating APublished 4 months ago on 10 June 2024 at 17:00",
+          "Rating APublished 4 months ago on 10 June 2024",
         );
 
       // Assert that content toggling works.
