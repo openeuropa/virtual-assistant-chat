@@ -4,6 +4,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { useAsBatchAdapter } from "@nlux/react";
 import vaAvatar from "./assets/va-avatar.svg";
+import userAvatar from "./assets/user-avatar.svg";
 import { AiChat } from "@nlux/react";
 import { Documents } from "./components/Documents.jsx";
 import { useEffect } from "react";
@@ -29,6 +30,10 @@ function App({ url = {}, width = "100%", height = "100vh" }) {
           name: "AI Virtual Assistant",
           avatar: vaAvatar,
           tagline: "Welcome to the European Commission AI Virtual Assistant.",
+        },
+        user: {
+          name: "User",
+          avatar: userAvatar,
         },
       }}
       messageOptions={{
