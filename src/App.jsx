@@ -1,5 +1,5 @@
-import "./styles/main.scss";
 import "@nlux/themes/nova.css";
+import "./styles/main.scss";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { useAsBatchAdapter } from "@nlux/react";
@@ -7,7 +7,7 @@ import vaAvatar from "./assets/va-avatar.svg";
 import { AiChat } from "@nlux/react";
 import { Documents } from "./components/Documents.jsx";
 
-function App({ url = {}, maxMessages = 100 }) {
+function App({ url = {}, width = "100%", height = "100vh" }) {
   TimeAgo.addDefaultLocale(en);
   const adapter = useAsBatchAdapter((message, extras) => {
     return fetch(`${url}/ask?question=${message}`, {
@@ -37,7 +37,7 @@ function App({ url = {}, maxMessages = 100 }) {
           </>
         ),
       }}
-      displayOptions={{ themeId: "nova", colorScheme: "light" }}
+      displayOptions={{ themeId: "nova", colorScheme: "light", width, height }}
       adapter={adapter}
     />
   );
