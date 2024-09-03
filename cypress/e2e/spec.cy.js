@@ -1,4 +1,10 @@
 describe("chat", () => {
+  // Fix test date.
+  before(() => {
+    const now = new Date(Date.parse("2024-10-01")).getTime();
+    cy.clock(now, ["Date"]);
+  });
+
   it("should display a response properly", () => {
     // Mock request with fixture.
     cy.intercept("GET", "/ask?question=*", { fixture: "ask.json" }).as(
@@ -7,14 +13,14 @@ describe("chat", () => {
 
     // Type in message area.
     cy.visit("/");
-    cy.get("[contenteditable]").first().focus().type("Show me the fixture");
+    cy.get(".nlux-comp-composer textarea").focus().type("Show me the fixture");
 
     // Send message.
-    cy.get("button.cs-button.cs-button--send").click();
+    cy.get(".nlux-comp-composer button").click();
 
     // Assert that chat displays mocked response correctly.
     cy.wait("@getAnswer").then((interception) => {
-      cy.get(".cs-message.cs-message--incoming").should(
+      cy.get(".nlux_msg_received").should(
         "include.text",
         "This is a mocked answer",
       );
@@ -31,7 +37,7 @@ describe("chat", () => {
         )
         .should(
           "include.text",
-          "Rating BPublished 3 months ago on 23 May 2024",
+          "Rating BPublished 4 months ago on 23 May 2024 at 16:00",
         );
       cy.get('tr[data-row-key="56009c9f-a60f-e660-8090-2ec6ba5796c0"]')
         .should(
@@ -42,7 +48,10 @@ describe("chat", () => {
           "include.html",
           '<a href="https://example.com/2" target="_blank">Second document</a>',
         )
-        .should("include.text", "2 months ago on 10 June 2024");
+        .should(
+          "include.text",
+          "Rating APublished 4 months ago on 10 June 2024 at 17:00",
+        );
 
       // Assert that content toggling works.
       cy.get("td.cs-documents-cell.cs-documents-row-expand-icon-cell a")

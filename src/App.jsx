@@ -6,9 +6,13 @@ import { useAsBatchAdapter } from "@nlux/react";
 import vaAvatar from "./assets/va-avatar.svg";
 import { AiChat } from "@nlux/react";
 import { Documents } from "./components/Documents.jsx";
+import { useEffect } from "react";
 
 function App({ url = {}, width = "100%", height = "100vh" }) {
-  TimeAgo.addDefaultLocale(en);
+  useEffect(() => {
+    TimeAgo.addDefaultLocale(en);
+  }, []);
+
   const adapter = useAsBatchAdapter((message, extras) => {
     return fetch(`${url}/ask?question=${message}`, {
       method: "get",
