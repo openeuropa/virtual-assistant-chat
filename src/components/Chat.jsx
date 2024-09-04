@@ -1,6 +1,6 @@
 import { useAsBatchAdapter } from "@nlux/react";
-import vaAvatar from "../assets/va-avatar.svg";
-import userAvatar from "../assets/user-avatar.svg";
+import vaAvatar from "../assets/va-avatar.svg?raw";
+import userAvatar from "../assets/user-avatar.svg?raw";
 import { AiChat } from "@nlux/react";
 import { Documents } from "./Documents.jsx";
 
@@ -20,12 +20,12 @@ function Chat({ url, width, height }) {
         personaOptions={{
           assistant: {
             name: "AI Virtual Assistant",
-            avatar: vaAvatar,
+            avatar: `data:image/svg+xml;base64,${btoa(vaAvatar)}`,
             tagline: "Welcome to the European Commission AI Virtual Assistant.",
           },
           user: {
             name: "User",
-            avatar: userAvatar,
+            avatar: `data:image/svg+xml;base64,${btoa(userAvatar)}`,
           },
         }}
         messageOptions={{
