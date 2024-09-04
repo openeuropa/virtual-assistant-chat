@@ -22,20 +22,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@chatscope/chat-ui-kit-react": "^2.0.3",
-    "@chatscope/chat-ui-kit-styles": "^1.4.0",
-    "@chatscope/use-chat": "^3.1.2",
+    "@nlux/react": "^2.17.1",
+    "@nlux/themes": "^2.17.1",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "javascript-time-ago": "^2.5.10",
-    "nanoid": "^5.0.7",
     "openapi-client-axios": "^7.5.5",
-    "rc-table": "^7.47.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-time-ago": "^7.3.3",
-    "styled-components": "^6.1.12"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",

@@ -1,5 +1,4 @@
-// Import ChatScope SCSS.
-@import "@chatscope/chat-ui-kit-styles/themes/default/main.scss";
+@import "@nlux/themes/nova.css";
 
 // Import Bootstrap SCSS.
 // Configuration
@@ -10,62 +9,71 @@
 @import "bootstrap/scss/utilities";
 
 @import "bootstrap/scss/root";
-@import "bootstrap/scss/tables";
 @import "bootstrap/scss/badge";
-
-// Helpers
-@import "bootstrap/scss/helpers";
 
 // Utilities
 @import "bootstrap/scss/utilities/api";
 
-.#{$prefix}-message {
-  line-height: $message-input-content-editor-container-line-height;
-}
+.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
+  --nlux-chtr-dvr--clr: #ddd;
+  --nlux-hmMsg--bgClr: #d8e0fb;
+  --nlux-hmMsg--txtClr: #26324b;
 
-.#{$prefix}-documents table {
-  margin-top: 1em;
-  caption-side: bottom;
-  border-collapse: collapse;
-  max-width: 750px;
+  --nlux-aiMsg--bgClr: #f3f5fb;
+  --nlux-aiMsg--txtClr: #26324b;
 
-  thead {
-    text-align: left;
-  }
-  thead,
-  tbody,
-  tfoot,
-  tr,
-  td,
-  th {
-    border-color: inherit;
-    border-style: solid;
-    border-width: $table-border-width;
-    font-family: $expansion-panel-font-family;
-    font-size: $expansion-panel-font-size;
-    font-variant: $expansion-panel-font-variant;
-    line-height: $message-input-content-editor-container-line-height;
+  .nlux-comp-chatItem {
+    margin-bottom: 0.75rem;
     a {
-      color: $primary;
+      font-weight: bold;
+      color: #3860ed;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
-
-  @extend .table;
+  .nlux-chatRoom-container {
+    border: 1px solid #ddd;
+  }
+  .nlux-conversation-container,
+  .nlux-comp-composer {
+    background-color: #fcfcfd;
+  }
 }
 
-.#{$prefix}-documents-table-row-expand-icon {
-  display: block;
-  height: 20px;
-  width: 20px;
-  background: red;
-}
-.#{$prefix}-documents-row-expand-icon-cell {
-  width: 25px;
-  text-align: center;
-  vertical-align: middle;
+.nlux-document {
+  display: flex;
+  align-items: initial;
+  &-left {
+    padding-top: 5px;
+  }
+  &-right {
+    flex-grow: 1;
+  }
+  &-meta {
+    @extend .text-muted;
+    margin-bottom: 0.25em;
+  }
 }
 
-.cs-documents-meta {
-  @extend .text-muted;
-  margin-bottom: 0.25em;
+.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
+  --nlux-chtr-dvr--clr: #ddd;
+  --nlux-hmMsg--bgClr: #d8e0fb;
+  --nlux-hmMsg--txtClr: #26324b;
+
+  --nlux-aiMsg--bgClr: #f3f5fb;
+  --nlux-aiMsg--txtClr: #26324b;
+
+  .nlux-comp-chatItem {
+    margin-bottom: 0.75rem;
+  }
+  .nlux-chatRoom-container {
+    border: 1px solid #ddd;
+  }
+  .nlux-conversation-container,
+  .nlux-comp-composer {
+    background-color: #fcfcfd;
+  }
 }
