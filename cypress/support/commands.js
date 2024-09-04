@@ -1,25 +1,16 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+/* eslint-disable no-undef */
+Cypress.Commands.add(
+  "assertDocument",
+  ({ id, rating, status, title, url, meta }) => {
+    cy.get(`div[data-document-id="${id}"] > .nlux-document-left`).should(
+      "contain.html",
+      `<small class="badge badge-sm bg-${status}" style="margin-right: 5px;">${rating}</small>`,
+    );
+    cy.get(`div[data-document-id="${id}"] > .nlux-document-right > a`)
+      .should("contain.text", title)
+      .should("have.attr", "href", url);
+    cy.get(
+      `div[data-document-id="${id}"] > .nlux-document-right > .nlux-document-meta`,
+    ).should("contain.text", meta);
+  },
+);

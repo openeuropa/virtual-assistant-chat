@@ -26,36 +26,21 @@ describe("chat", () => {
       );
 
       //Assert documents are rendered correctly.
-      [
-        {
-          id: "80081c40-dcc6-7a24-15a9-5092924b2b27",
-          rating: "B",
-          status: "warning",
-          title: "First document",
-          url: "https://example.com/1",
-          meta: "Published on 23 May 2024",
-        },
-        {
-          id: "56009c9f-a60f-e660-8090-2ec6ba5796c0",
-          rating: "A",
-          status: "success",
-          title: "Second document",
-          url: "https://example.com/2",
-          meta: "Published on 10 June 2024",
-        },
-      ].forEach((item) => {
-        cy.get(
-          `div[data-document-id="${item.id}"] > .nlux-document-left`,
-        ).should(
-          "contain.html",
-          `<small class="badge badge-sm bg-${item.status}" style="margin-right: 5px;">${item.rating}</small>`,
-        );
-        cy.get(`div[data-document-id="${item.id}"] > .nlux-document-right > a`)
-          .should("contain.text", item.title)
-          .should("have.attr", "href", item.url);
-        cy.get(
-          `div[data-document-id="${item.id}"] > .nlux-document-right > .nlux-document-meta`,
-        ).should("contain.text", item.meta);
+      cy.assertDocument({
+        id: "80081c40-dcc6-7a24-15a9-5092924b2b27",
+        rating: "B",
+        status: "warning",
+        title: "First document",
+        url: "https://example.com/1",
+        meta: "Published on 23 May 2024",
+      });
+      cy.assertDocument({
+        id: "56009c9f-a60f-e660-8090-2ec6ba5796c0",
+        rating: "A",
+        status: "success",
+        title: "Second document",
+        url: "https://example.com/2",
+        meta: "Published on 10 June 2024",
       });
     });
   });
