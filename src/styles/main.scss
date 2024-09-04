@@ -75,5 +75,8 @@
   .nlux-conversation-container,
   .nlux-comp-composer {
     background-color: #fcfcfd;
+    textarea:focus {
+      box-shadow: none !important;
+    }
   }
 }
