@@ -1,5 +1,4 @@
 import React from "react";
-import ReactTimeAgo from "react-time-ago";
 
 export const Documents = ({ documents }) => {
   const ratingColorMap = {
@@ -31,27 +30,30 @@ export const Documents = ({ documents }) => {
           const formattedDate = dateObject.toLocaleString("en-GB", options);
 
           return (
-            <div key={document.id} className="cs-document-item">
-              <b>
-                <a
-                  href={document.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+            <div key={document.id} className="nlux-document">
+              <div className="left">
+                <small
+                  className={`badge badge-sm ${getColorClass(document.rating)}`}
+                  style={{ marginRight: "5px" }}
                 >
-                  <small
-                    className={`badge badge-sm ${getColorClass(document.rating)}`}
-                    style={{ marginRight: "5px" }}
-                  >
-                    {document.rating}
-                  </small>
-                  {document.title}
-                </a>
-              </b>
-              <div className="cs-documents-meta">
-                <small style={{ whiteSpace: "nowrap" }}>
-                  Published <ReactTimeAgo date={dateObject} locale="en-GB" /> on{" "}
-                  {formattedDate}
+                  {document.rating}
                 </small>
+              </div>
+              <div className="nlux-document-right">
+                <b>
+                  <a
+                    href={document.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {document.title}
+                  </a>
+                </b>
+                <div className="nlux-document-meta">
+                  <small style={{ whiteSpace: "nowrap" }}>
+                    Published on {formattedDate}
+                  </small>
+                </div>
               </div>
             </div>
           );

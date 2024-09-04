@@ -1,3 +1,5 @@
+@import "@nlux/themes/nova.css";
+
 // Import Bootstrap SCSS.
 // Configuration
 @import "bootstrap/scss/functions";
@@ -9,16 +11,52 @@
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/badge";
 
-// Helpers
-@import "bootstrap/scss/helpers";
-
 // Utilities
 @import "bootstrap/scss/utilities/api";
 
-.cs-documents-meta {
-  @extend .text-muted;
-  margin-bottom: 0.25em;
+.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
+  --nlux-chtr-dvr--clr: #ddd;
+  --nlux-hmMsg--bgClr: #d8e0fb;
+  --nlux-hmMsg--txtClr: #26324b;
+
+  --nlux-aiMsg--bgClr: #f3f5fb;
+  --nlux-aiMsg--txtClr: #26324b;
+
+  .nlux-comp-chatItem {
+    margin-bottom: 0.75rem;
+    a {
+      color: #3860ed;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  .nlux-chatRoom-container {
+    border: 1px solid #ddd;
+  }
+  .nlux-conversation-container,
+  .nlux-comp-composer {
+    background-color: #fcfcfd;
+  }
 }
+
+.nlux-document {
+  display: flex;
+  align-items: initial;
+  &-left {
+    padding-top: 5px;
+  }
+  &-right {
+    flex-grow: 1;
+  }
+  &-meta {
+    @extend .text-muted;
+    margin-bottom: 0.25em;
+  }
+}
+
 .nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
   --nlux-chtr-dvr--clr: #ddd;
   --nlux-hmMsg--bgClr: #d8e0fb;

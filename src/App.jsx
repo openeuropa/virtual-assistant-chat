@@ -1,4 +1,3 @@
-import "@nlux/themes/nova.css";
 import "./styles/main.scss";
 import Chat from "./components/Chat.jsx";
 
