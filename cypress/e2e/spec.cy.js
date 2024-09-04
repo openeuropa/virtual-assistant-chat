@@ -25,43 +25,38 @@ describe("chat", () => {
         "This is a mocked answer",
       );
 
-      // Assert documents are rendered correctly.
-      cy.get('tr[data-row-key="80081c40-dcc6-7a24-15a9-5092924b2b27"]')
-        .should(
-          "include.html",
-          '<small class="badge badge-sm bg-warning" style="margin-right: 5px;">Rating B</small>',
-        )
-        .should(
-          "include.html",
-          '<a href="https://example.com/1" target="_blank">First document</a>',
-        )
-        .should(
-          "include.text",
-          "Rating BPublished 4 months ago on 23 May 2024",
+      //Assert documents are rendered correctly.
+      [
+        {
+          id: "80081c40-dcc6-7a24-15a9-5092924b2b27",
+          rating: "B",
+          status: "warning",
+          title: "First document",
+          url: "https://example.com/1",
+          meta: "Published on 23 May 2024",
+        },
+        {
+          id: "56009c9f-a60f-e660-8090-2ec6ba5796c0",
+          rating: "A",
+          status: "success",
+          title: "Second document",
+          url: "https://example.com/2",
+          meta: "Published on 10 June 2024",
+        },
+      ].forEach((item) => {
+        cy.get(
+          `div[data-document-id="${item.id}"] > .nlux-document-left`,
+        ).should(
+          "contain.html",
+          `<small class="badge badge-sm bg-${item.status}" style="margin-right: 5px;">${item.rating}</small>`,
         );
-      cy.get('tr[data-row-key="56009c9f-a60f-e660-8090-2ec6ba5796c0"]')
-        .should(
-          "include.html",
-          '<small class="badge badge-sm bg-success" style="margin-right: 5px;">Rating A</small>',
-        )
-        .should(
-          "include.html",
-          '<a href="https://example.com/2" target="_blank">Second document</a>',
-        )
-        .should(
-          "include.text",
-          "Rating APublished 4 months ago on 10 June 2024",
-        );
-
-      // Assert that content toggling works.
-      cy.get("td.cs-documents-cell.cs-documents-row-expand-icon-cell a")
-        .eq(0)
-        .click()
-        .should("be.visible", "This is the content of the first document");
-      cy.get("td.cs-documents-cell.cs-documents-row-expand-icon-cell a")
-        .eq(1)
-        .click()
-        .should("be.visible", "This is the content of the first document");
+        cy.get(`div[data-document-id="${item.id}"] > .nlux-document-right > a`)
+          .should("contain.text", item.title)
+          .should("have.attr", "href", item.url);
+        cy.get(
+          `div[data-document-id="${item.id}"] > .nlux-document-right > .nlux-document-meta`,
+        ).should("contain.text", item.meta);
+      });
     });
   });
 });

@@ -16,7 +16,7 @@ export const Documents = ({ documents }) => {
   return (
     <>
       <b>Supporting documents</b>
-      <div className="cs-documents-list">
+      <div className="nlux-documents">
         {documents.map((document) => {
           const dateObject = new Date(document.source_date);
           let options = {
@@ -30,8 +30,12 @@ export const Documents = ({ documents }) => {
           const formattedDate = dateObject.toLocaleString("en-GB", options);
 
           return (
-            <div key={document.id} className="nlux-document">
-              <div className="left">
+            <div
+              key={document.id}
+              data-document-id={document.id}
+              className="nlux-document"
+            >
+              <div className="nlux-document-left">
                 <small
                   className={`badge badge-sm ${getColorClass(document.rating)}`}
                   style={{ marginRight: "5px" }}
@@ -40,15 +44,13 @@ export const Documents = ({ documents }) => {
                 </small>
               </div>
               <div className="nlux-document-right">
-                <b>
-                  <a
-                    href={document.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {document.title}
-                  </a>
-                </b>
+                <a
+                  href={document.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {document.title}
+                </a>
                 <div className="nlux-document-meta">
                   <small style={{ whiteSpace: "nowrap" }}>
                     Published on {formattedDate}
