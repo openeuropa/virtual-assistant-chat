@@ -1,16 +1,10 @@
-import { useAsBatchAdapter } from "@nlux/react";
 import vaAvatar from "../assets/va-avatar.svg?raw";
 import userAvatar from "../assets/user-avatar.svg?raw";
+import { useAsBatchAdapter } from "@nlux/react";
 import { AiChat } from "@nlux/react";
 import { Documents } from "./Documents.jsx";
 
-function Chat({ url, width, height }) {
-  const adapter = useAsBatchAdapter((message, extras) => {
-    return fetch(`${url}/ask?question=${message}`, {
-      method: "get",
-    }).then((response) => response.json());
-  });
-
+function Chat({ adapter, width, height }) {
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -44,7 +38,7 @@ function Chat({ url, width, height }) {
           width,
           height,
         }}
-        adapter={adapter}
+        adapter={useAsBatchAdapter(adapter)}
       />
     </div>
   );
