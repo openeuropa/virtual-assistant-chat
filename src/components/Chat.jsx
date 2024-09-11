@@ -3,8 +3,21 @@ import userAvatar from "../assets/user-avatar.svg?raw";
 import { useAsBatchAdapter } from "@nlux/react";
 import { AiChat } from "@nlux/react";
 import { Documents } from "./Documents.jsx";
+import { useCallback } from "react";
+import { useAuth } from "../hooks/useAuth.js";
 
 function Chat({ adapter, width, height }) {
+  const { token, setToken } = useAuth();
+
+  const readyCallback = useCallback(
+    (readyDetails) => {
+      // @todo: get token from JWT endpoint and set it to local storage.
+      setToken("12345");
+      console.log(token);
+    },
+    [token, setToken],
+  );
+
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -39,6 +52,7 @@ function Chat({ adapter, width, height }) {
           height,
         }}
         adapter={useAsBatchAdapter(adapter)}
+        events={{ ready: readyCallback }}
       />
     </div>
   );
