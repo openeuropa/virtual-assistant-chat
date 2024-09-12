@@ -18,7 +18,7 @@ app.get("/token", (req, res) => {
   const token = jwt.sign(
     {
       iat: now,
-      exp: now + 3600, // Token valid for 1 hour
+      exp: now + 10, // Token valid for 10 seconds
       sub: "admin@example.org",
       iss: `http://localhost:${PORT}`,
     },

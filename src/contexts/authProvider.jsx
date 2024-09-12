@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
   // Custom function to update the token state.
   // This function is used to abstract away the state setter and can include additional logic if needed.
   const setToken = (newToken) => {
+    localStorage.setItem("token", newToken);
     setStateToken(newToken);
   };
 

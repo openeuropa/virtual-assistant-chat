@@ -5,6 +5,7 @@ import { AiChat } from "@nlux/react";
 import { Documents } from "./Documents.jsx";
 import { useCallback } from "react";
 import { useAuth } from "../hooks/useAuth.js";
+import { jwtDecode } from "jwt-decode";
 
 function Chat({ client, width, height }) {
   const { token, setToken } = useAuth();
@@ -41,8 +42,21 @@ function Chat({ client, width, height }) {
           width,
           height,
         }}
-        adapter={useAsBatchAdapter((message, extras) => {
-          return client.ask(message, token);
+        adapter={useAsBatchAdapter(async (message, extras) => {
+          // Decode the token to check the expiration
+          const payload = jwtDecode(token);
+
+          // Check if the token is expired (or about to expire)
+          const isExpired = payload.exp * 1000 < Date.now(); // exp is in seconds, Date.now() gives milliseconds
+          if (isExpired) {
+            console.log("JWT Token expired, refreshing.");
+            // Refresh the token if it's expired.
+            const newToken = await client.getJwt();
+            setToken(newToken);
+            return client.ask(message, newToken);
+          } else {
+            return client.ask(message, token);
+          }
         })}
         events={{
           ready: useCallback(
