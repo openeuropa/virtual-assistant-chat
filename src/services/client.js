@@ -30,7 +30,11 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
    */
   const getJwt = async () => {
     try {
-      const response = await axios.post(jwtIssuerEndpoint);
+      const response = await axios.get(jwtIssuerEndpoint, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
       const token = response.data.token;
 
       // Decode the JWT payload using jwt-decode

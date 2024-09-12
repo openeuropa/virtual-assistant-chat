@@ -11,11 +11,23 @@ const interceptor = new BatchInterceptor({
 });
 
 describe("The client", async () => {
-  beforeAll(() => interceptor.apply());
+  beforeAll(() => {
+    // Any unhandled exception will NOT be coerced to a 500 error response.
+    // This allows to run expect() assertions in the interceptor's event handlers.
+    interceptor.on("unhandledException", ({ error }) => {
+      throw error;
+    });
+    interceptor.apply();
+  });
   afterEach(() => interceptor.removeAllListeners());
 
   it("should have a working getJwt() method", async () => {
     interceptor.on("request", ({ request, controller }) => {
+      // Assert request to be well-formed.
+      expect(request.url).toEqual("http://localhost/jwt");
+      expect(request.method).toEqual("GET");
+      expect(request.headers.get("Accept")).toEqual("application/json");
+
       const payload = {
         iat: 1726136574,
         exp: 1726140174,
