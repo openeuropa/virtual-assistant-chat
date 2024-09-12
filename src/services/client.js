@@ -11,19 +11,6 @@ import { jwtDecode } from "jwt-decode";
 
 const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
   /**
-   * Function to set the JWT token in axios default headers.
-   *
-   * @param token
-   */
-  const setAuthToken = (token) => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      delete axios.defaults.headers.common["Authorization"];
-    }
-  };
-
-  /**
    * Function to request JWT from the issuer endpoint.
    *
    * @returns {Promise<*>}
@@ -38,14 +25,8 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
       const token = response.data.token;
 
       // Decode the JWT payload using jwt-decode
-      const payload = jwtDecode(token);
-
-      // Set the JWT token as a Bearer token for axios requests
-      setAuthToken(token);
-
-      return payload;
+      return jwtDecode(token);
     } catch (error) {
-      // console.error("Error fetching JWT:", error);
       throw new Error("Failed to retrieve JWT");
     }
   };
@@ -55,9 +36,10 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
    * The 'message' parameter will be appended to the URL as '?question='.
    *
    * @param message
+   * @param token
    * @returns {Promise<any>}
    */
-  const ask = async (message) => {
+  const ask = async (message, token) => {
     try {
       // Encode the message to ensure it's URL-safe
       const encodedMessage = encodeURIComponent(message);
@@ -66,7 +48,11 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
       const url = `${backendBaseUrl}/ask?question=${encodedMessage}`;
 
       // Perform the GET request to the constructed URL
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error performing request to /ask:", error);

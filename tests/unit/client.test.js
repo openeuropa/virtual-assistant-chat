@@ -1,4 +1,4 @@
-import { expect, describe, it, afterEach, beforeAll } from "vitest";
+import { expect, describe, it, afterEach, beforeEach } from "vitest";
 import createClient from "@/services/client.js";
 import { BatchInterceptor } from "@mswjs/interceptors";
 import nodeInterceptors from "@mswjs/interceptors/presets/node";
@@ -6,36 +6,59 @@ import jwt from "jsonwebtoken";
 
 // Set up interceptor.
 const interceptor = new BatchInterceptor({
-  name: "my-interceptor",
   interceptors: nodeInterceptors,
 });
 
-describe("The client", async () => {
-  beforeAll(() => {
-    // Any unhandled exception will NOT be coerced to a 500 error response.
-    // This allows to run expect() assertions in the interceptor's event handlers.
-    interceptor.on("unhandledException", ({ error }) => {
-      throw error;
-    });
-    interceptor.apply();
-  });
-  afterEach(() => interceptor.removeAllListeners());
+// Set up client.
+const client = createClient("http://localhost/backend", "http://localhost/jwt");
 
-  it("should have a working getJwt() method", async () => {
+beforeEach(() => {
+  // Any unhandled exception will NOT be coerced to a 500 error response.
+  // This allows to run expect() assertions in the interceptor's event handlers.
+  interceptor.on("unhandledException", ({ error }) => {
+    throw error;
+  });
+  interceptor.apply();
+});
+afterEach(() => interceptor.removeAllListeners());
+
+describe("The client.getJwt() method", async () => {
+  it("should produce a well-formed request", async () => {
     interceptor.on("request", ({ request, controller }) => {
       // Assert request to be well-formed.
       expect(request.url).toEqual("http://localhost/jwt");
       expect(request.method).toEqual("GET");
       expect(request.headers.get("Accept")).toEqual("application/json");
 
+      // Return a valid response not to have an error thrown by the method.
+      controller.respondWith(
+        new Response(
+          JSON.stringify({
+            token: jwt.sign({}, "secret", { algorithm: "HS256" }),
+          }),
+          {
+            status: 200,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        ),
+      );
+    });
+
+    // Run method to produce request.
+    await client.getJwt();
+  });
+
+  it("should return the token payload, on a successful request", async () => {
+    interceptor.on("request", ({ request, controller }) => {
       const payload = {
         iat: 1726136574,
         exp: 1726140174,
         sub: "admin@example.org",
         iss: "http://localhost:8080",
       };
-      const secret = "secret";
-      const token = jwt.sign(payload, secret, { algorithm: "HS256" });
+      const token = jwt.sign(payload, "secret", { algorithm: "HS256" });
 
       controller.respondWith(
         new Response(JSON.stringify({ token }), {
@@ -47,10 +70,6 @@ describe("The client", async () => {
       );
     });
 
-    const client = createClient(
-      "http://localhost/backend",
-      "http://localhost/jwt",
-    );
     const payload = await client.getJwt();
     expect(payload).toEqual({
       iat: 1726136574,
@@ -58,5 +77,35 @@ describe("The client", async () => {
       sub: "admin@example.org",
       iss: "http://localhost:8080",
     });
+  });
+});
+
+describe("The client.ask() method", async () => {
+  it("should produce a well-formed request and return the response content", async () => {
+    interceptor.on("request", ({ request, controller }) => {
+      // Assert request to be well-formed.
+      expect(request.url).toEqual(
+        "http://localhost/backend/ask?question=Here%20is%20my%20question%3A%20how%20would%20you%20encode%20these%20%22%26%22%2C%20%22%3F%22%3F",
+      );
+      expect(request.method).toEqual("GET");
+      expect(request.headers.get("Authorization")).toEqual("Bearer 123");
+
+      // Return a valid response not to have an error thrown by the method.
+      controller.respondWith(
+        new Response(JSON.stringify({ foo: "bar" }), {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }),
+      );
+    });
+
+    // Run method to produce request.
+    const content = await client.ask(
+      'Here is my question: how would you encode these "&", "?"?',
+      "123",
+    );
+    expect(content).toEqual({ foo: "bar" });
   });
 });
