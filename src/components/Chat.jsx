@@ -6,16 +6,16 @@ import { Documents } from "./Documents.jsx";
 import { useCallback } from "react";
 import { useAuth } from "../hooks/useAuth.js";
 
-function Chat({ adapter, width, height }) {
+function Chat({ client, adapter, width, height }) {
   const { token, setToken } = useAuth();
 
   const readyCallback = useCallback(
     (readyDetails) => {
       // @todo: get token from JWT endpoint and set it to local storage.
-      setToken("12345");
+      setToken(client.getJwt());
       console.log(token);
     },
-    [token, setToken],
+    [token, setToken, client],
   );
 
   return (

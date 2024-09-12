@@ -16,8 +16,8 @@
     "cypress-run": "cypress run --headless",
     "cypress-open": "cypress open --e2e --browser chrome",
     "prepare": "husky",
-    "prettier-write": "prettier --write ./cypress/e2e/** ./cypress/support/** ./src/** *.js *.cjs",
-    "prettier-check": "prettier --check  ./cypress/e2e/** ./cypress/support/** ./src/** *.js *.cjs",
+    "prettier-write": "prettier --write ./cypress/e2e/** ./cypress/support/** ./src/** ./tests/** *.js *.cjs",
+    "prettier-check": "prettier --check  ./cypress/e2e/** ./cypress/support/** ./src/** ./tests/** *.js *.cjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -27,12 +27,14 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "jwt-decode": "^4.0.0",
     "openapi-client-axios": "^7.5.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
+    "@mswjs/interceptors": "^0.35.1",
     "@storybook/addon-essentials": "^8.2.7",
     "@storybook/addon-interactions": "^8.2.7",
     "@storybook/addon-links": "^8.2.7",
@@ -55,6 +57,7 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-storybook": "^0.8.0",
     "husky": "^9.1.2",
+    "jsonwebtoken": "^9.0.2",
     "prettier": "^3.3.3",
     "prop-types": "^15.8.1",
     "sass": "^1.77.8",
