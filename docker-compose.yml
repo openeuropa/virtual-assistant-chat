@@ -6,3 +6,13 @@ services:
     entrypoint: ["node", "dist/index.js", "-d", "-h", "0.0.0.0", "mock", "/resources/openapi.json"]
     volumes:
       - ./src/resources:/resources
+  jwt:
+    image: node:lts
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "8088:8088"
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-123}
+    command: bash -c "node ./tests/jwt-issuer.js"

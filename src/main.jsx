@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       >
         <App
           backendUrl={"http://127.0.0.1:5000"}
-          jwtEndpoint={""}
+          jwtEndpoint={"http://127.0.0.1:8088/token"}
           width="1000px"
           height="70vh"
         />
