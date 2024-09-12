@@ -1,5 +1,4 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 
 /**
  * Create and export the client service.
@@ -23,9 +22,7 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
         },
       });
       const token = response.data.token;
-
-      // Decode the JWT payload using jwt-decode
-      return jwtDecode(token);
+      return token;
     } catch (error) {
       throw new Error("Failed to retrieve JWT");
     }

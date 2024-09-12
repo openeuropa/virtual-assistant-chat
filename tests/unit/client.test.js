@@ -70,13 +70,10 @@ describe("The client.getJwt() method", async () => {
       );
     });
 
-    const payload = await client.getJwt();
-    expect(payload).toEqual({
-      iat: 1726136574,
-      exp: 1726140174,
-      sub: "admin@example.org",
-      iss: "http://localhost:8080",
-    });
+    const token = await client.getJwt();
+    expect(token).toEqual(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjYxMzY1NzQsImV4cCI6MTcyNjE0MDE3NCwic3ViIjoiYWRtaW5AZXhhbXBsZS5vcmciLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAifQ.-fDru8D1A39AtiCCPxUaMrG9xOKtCO-eftIb0vk2H5c",
+    );
   });
 });
 

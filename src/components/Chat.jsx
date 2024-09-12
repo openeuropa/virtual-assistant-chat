@@ -6,16 +6,16 @@ import { Documents } from "./Documents.jsx";
 import { useCallback } from "react";
 import { useAuth } from "../hooks/useAuth.js";
 
-function Chat({ client, adapter, width, height }) {
+function Chat({ client, width, height }) {
   const { token, setToken } = useAuth();
 
   const readyCallback = useCallback(
-    (readyDetails) => {
+    async (readyDetails) => {
       // @todo: get token from JWT endpoint and set it to local storage.
-      setToken(client.getJwt());
-      console.log(token);
+      const payload = await client.getJwt();
+      setToken(payload);
     },
-    [token, setToken, client],
+    [setToken, client],
   );
 
   return (
@@ -51,7 +51,9 @@ function Chat({ client, adapter, width, height }) {
           width,
           height,
         }}
-        adapter={useAsBatchAdapter(adapter)}
+        adapter={useAsBatchAdapter((message, extras) => {
+          return client.ask(message, token);
+        })}
         events={{ ready: readyCallback }}
       />
     </div>
