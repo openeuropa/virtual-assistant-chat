@@ -21,9 +21,10 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
           Accept: "application/json",
         },
       });
-      const token = response.data.token;
-      return token;
+      console.log(`getJwt: ${response.data.token}`);
+      return response.data.token;
     } catch (error) {
+      console.error("Failed to retrieve JWT", error);
       throw new Error("Failed to retrieve JWT");
     }
   };
@@ -37,12 +38,16 @@ const createClient = (backendBaseUrl, jwtIssuerEndpoint) => {
    * @returns {Promise<any>}
    */
   const ask = async (message, token) => {
+    if (token == null) {
+      throw new Error("Missing JWT token");
+    }
     try {
       // Encode the message to ensure it's URL-safe
       const encodedMessage = encodeURIComponent(message);
 
       // Construct the URL with the message as a URL parameter
       const url = `${backendBaseUrl}/ask?question=${encodedMessage}`;
+      console.log(`ask: ${token}`);
 
       // Perform the GET request to the constructed URL
       const response = await axios.get(url, {

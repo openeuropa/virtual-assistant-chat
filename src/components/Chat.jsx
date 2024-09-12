@@ -8,16 +8,6 @@ import { useAuth } from "../hooks/useAuth.js";
 
 function Chat({ client, width, height }) {
   const { token, setToken } = useAuth();
-
-  const readyCallback = useCallback(
-    async (readyDetails) => {
-      // @todo: get token from JWT endpoint and set it to local storage.
-      const payload = await client.getJwt();
-      setToken(payload);
-    },
-    [setToken, client],
-  );
-
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -54,7 +44,12 @@ function Chat({ client, width, height }) {
         adapter={useAsBatchAdapter((message, extras) => {
           return client.ask(message, token);
         })}
-        events={{ ready: readyCallback }}
+        events={{
+          ready: useCallback(
+            async () => setToken(await client.getJwt()),
+            [setToken, client],
+          ),
+        }}
       />
     </div>
   );

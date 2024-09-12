@@ -13,28 +13,6 @@ const AuthProvider = ({ children }) => {
     setStateToken(newToken);
   };
 
-  // useEffect hook to synchronize the token with Axios headers and localStorage.
-  // Runs whenever the 'token' state changes.
-  useEffect(
-    () => {
-      if (token) {
-        // If token exists, set the Authorization header for all axios requests.
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-
-        // Also store the token in localStorage for persistence across reloads.
-        localStorage.setItem("token", token);
-      } else {
-        // If token is null or empty, remove the Authorization header.
-        delete axios.defaults.headers.common["Authorization"];
-
-        // Remove the token from localStorage.
-        localStorage.removeItem("token");
-      }
-    },
-    // Re-run this effect only when 'token' changes.
-    [token],
-  );
-
   // Memoize the authentication context value to optimize performance.
   // This prevents unnecessary re-renders when the context is passed to consumers.
   const contextValue = useMemo(
