@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 function Chat({ client, width, height }) {
   const { token, setToken } = useAuth();
+  const name = token ? jwtDecode(token).name : "";
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -17,12 +18,12 @@ function Chat({ client, width, height }) {
         }}
         personaOptions={{
           assistant: {
-            name: "AI Virtual Assistant",
+            name: token ? `Hello ${name || "there"}!` : "Authenticating...",
             avatar: `data:image/svg+xml;base64,${btoa(vaAvatar)}`,
             tagline: "Welcome to the European Commission AI Virtual Assistant.",
           },
           user: {
-            name: "User",
+            name,
             avatar: `data:image/svg+xml;base64,${btoa(userAvatar)}`,
           },
         }}

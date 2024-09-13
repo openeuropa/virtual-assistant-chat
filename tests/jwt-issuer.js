@@ -19,6 +19,7 @@ app.get("/token", (req, res) => {
     {
       iat: now,
       exp: now + 10, // Token valid for 10 seconds
+      name: "John Doe",
       sub: "admin@example.org",
       iss: `http://localhost:${PORT}`,
     },

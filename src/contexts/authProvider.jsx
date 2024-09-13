@@ -1,16 +1,19 @@
-import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import AuthContext from "./authContext.js";
+import { jwtDecode } from "jwt-decode";
 
 const AuthProvider = ({ children }) => {
-  // State to hold the authentication token, initialized from localStorage.
-  // If a token exists in localStorage, it's set as the initial state.
-  const [token, setStateToken] = useState(localStorage.getItem("token"));
+  // State to hold the authentication token.
+  const [token, setStateToken] = useState("");
 
   // Custom function to update the token state.
   // This function is used to abstract away the state setter and can include additional logic if needed.
   const setToken = (newToken) => {
-    localStorage.setItem("token", newToken);
+    console.log("Setting token", {
+      old: token,
+      new: newToken,
+      newPayload: jwtDecode(newToken),
+    });
     setStateToken(newToken);
   };
 
@@ -22,6 +25,7 @@ const AuthProvider = ({ children }) => {
       setToken,
     }),
     // Recompute the memoized value only when 'token' changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [token],
   );
 
