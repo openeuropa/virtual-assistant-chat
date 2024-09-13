@@ -5,11 +5,29 @@ describe("chat", () => {
     cy.clock(now, ["Date"]);
   });
 
-  it("should display a response properly", () => {
+  it("should display a response properly", async () => {
     // Mock request with fixture.
     cy.intercept("GET", "/ask?question=*", { fixture: "ask.json" }).as(
       "getAnswer",
     );
+
+    const token = await cy.task("generateJwt", {
+      payload: {
+        iat: 1726136574,
+        exp: 1726140174,
+        name: "Testing user",
+        sub: "admin@example.org",
+        iss: "http://localhost:8080",
+      },
+    });
+
+    // Intercept the /token request and respond with the generated JWT
+    cy.intercept("GET", "/token", {
+      statusCode: 200,
+      body: {
+        token,
+      },
+    }).as("getToken");
 
     // Type in message area.
     cy.visit("/");
