@@ -13,7 +13,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           marginRight: "auto",
         }}
       >
-        <App url={"http://127.0.0.1:5000"} width="1000px" height="70vh" />
+        <App
+          backendUrl={"http://127.0.0.1:5000"}
+          jwtEndpoint={"http://127.0.0.1:8088/token"}
+          width="1000px"
+          height="70vh"
+        />
       </div>
     </div>
   </React.StrictMode>,

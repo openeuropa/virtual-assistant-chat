@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import jwt from "jsonwebtoken";
 
 export default defineConfig({
   e2e: {
@@ -6,7 +7,11 @@ export default defineConfig({
     viewportWidth: 1280,
     viewportHeight: 720,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on("task", {
+        generateJwt({ payload, secret = "secret" }) {
+          return jwt.sign(payload, secret, { algorithm: "HS256" });
+        },
+      });
     },
   },
 });
