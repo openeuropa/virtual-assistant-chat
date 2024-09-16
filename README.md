@@ -140,6 +140,23 @@ pnpm dev
 
 This will start a development server with **Vite** and make the project available at `http://127.0.0.1:5173` by default.
 
+#### Mock Servers Setup
+
+The project is equipped with two mock servers:
+
+1. **JWT Issuer**: Simulates the JWT token issuance process, which is essential for authentication.
+2. **AI Virtual Assistant Backend**: Mocks the backend responses from the AI assistant.
+
+Both mock servers are managed using Docker. To run these servers, you need to have **Docker** and **Docker Compose** installed.
+
+You can spin up the containers by running the following command:
+
+```bash
+docker compose up -d
+```
+
+This will start the mock services in the background (`-d` runs the containers in detached mode).
+
 ### 4. Building for Production
 
 To build the project for production, use:
