@@ -138,7 +138,31 @@ To start the development server, run the following command:
 pnpm dev
 ```
 
-This will start a development server with **Vite** and make the project available at `http://127.0.0.1:5173` by default.
+#### Environment Variables
+
+This project relies on environment variables to configure the behavior of the AI virtual assistant application, including
+JWT (JSON Web Token) handling. The environment variables are defined in the `.env` file located in the root of the project,
+which is committed to the repository for default settings.
+
+The default environment variables in `.env` are:
+
+- `JWT_SECRET`: The secret key used to sign and verify JWT tokens. Example: `"secret"`
+- `JWT_ISS`: The issuer of the JWT tokens. Typically this is the URL of your authentication service. Example: `"http://localhost:8088"`
+- `JWT_EXP`: The expiration time for JWT tokens in seconds. Example: `10`
+
+To override the default environment variables without modifying the committed `.env` file, you can create a `.env.local`
+file in the root of the project. This file is **not** committed to version control (it's ignored by default).
+
+For example, to use different JWT settings for local development, your `.env.local` might look like this:
+
+```bash
+# .env.local
+JWT_SECRET="my-local-secret"
+JWT_ISS="http://localhost:3000"
+JWT_EXP=30
+```
+
+Once the `.env.local` file is in place, Vite will automatically prioritize and use the values defined there instead of those in `.env`.
 
 #### Mock Servers Setup
 
