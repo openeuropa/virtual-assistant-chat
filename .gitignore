@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 *storybook.log
-.env*
+.env.*
 cypress/screenshots/
+docker-compose.override.yml
