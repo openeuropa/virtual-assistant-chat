@@ -1,15 +1,9 @@
-import vaAvatar from "../assets/va-avatar.svg?raw";
-import userAvatar from "../assets/user-avatar.svg?raw";
-import { useAsBatchAdapter } from "@nlux/react";
-import { AiChat } from "@nlux/react";
-import { Documents } from "./Documents.jsx";
-import { useCallback } from "react";
-import { useAuth } from "../hooks/useAuth.js";
-import { jwtDecode } from "jwt-decode";
+import vaAvatar from "@/assets/va-avatar.svg?raw";
+import userAvatar from "@/assets/user-avatar.svg?raw";
+import { AiChat, useAsBatchAdapter } from "@nlux/react";
+import { Documents } from "@/components/Documents.jsx";
 
-function Chat({ client, width, height }) {
-  const { token, setToken } = useAuth();
-  const name = token ? jwtDecode(token).name : "";
+function Chat({ name, width, height, adapter = async () => "", events = {} }) {
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -18,7 +12,7 @@ function Chat({ client, width, height }) {
         }}
         personaOptions={{
           assistant: {
-            name: token ? `Hello ${name || "there"}!` : "Authenticating...",
+            name: name ? `Hello ${name || "there"}!` : "Authenticating...",
             avatar: `data:image/svg+xml;base64,${btoa(vaAvatar)}`,
             tagline: "Welcome to the European Commission AI Virtual Assistant.",
           },
@@ -43,28 +37,8 @@ function Chat({ client, width, height }) {
           width,
           height,
         }}
-        adapter={useAsBatchAdapter(async (message, extras) => {
-          // Decode the token to check the expiration
-          const payload = jwtDecode(token);
-
-          // Check if the token is expired (or about to expire)
-          const isExpired = payload.exp * 1000 < Date.now(); // exp is in seconds, Date.now() gives milliseconds
-          if (isExpired) {
-            console.log("JWT Token expired, refreshing.");
-            // Refresh the token if it's expired.
-            const newToken = await client.getJwt();
-            setToken(newToken);
-            return client.ask(message, newToken);
-          } else {
-            return client.ask(message, token);
-          }
-        })}
-        events={{
-          ready: useCallback(
-            async () => setToken(await client.getJwt()),
-            [setToken, client],
-          ),
-        }}
+        adapter={useAsBatchAdapter(adapter)}
+        events={events}
       />
     </div>
   );
