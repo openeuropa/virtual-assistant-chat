@@ -11,6 +11,9 @@ function Chat({
   events = {},
   initialConversation = null,
 }) {
+  const tagline = name
+    ? `Hello ${name || "there"}, You are now connected!`
+    : "Authenticating...";
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -19,9 +22,9 @@ function Chat({
         }}
         personaOptions={{
           assistant: {
-            name: name ? `Hello ${name || "there"}!` : "Authenticating...",
+            name: "Welcome to the European Commission AI Virtual Assistant!",
             avatar: `data:image/svg+xml;base64,${btoa(vaAvatar)}`,
-            tagline: "Welcome to the European Commission AI Virtual Assistant.",
+            tagline,
           },
           user: {
             name,
