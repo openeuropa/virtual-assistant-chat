@@ -14,53 +14,47 @@ export const Documents = ({ documents }) => {
   };
 
   return (
-    <>
+    <div className="nlux-documents">
       <b>Supporting documents</b>
-      <div className="nlux-documents">
-        {documents.map((document) => {
-          const dateObject = new Date(document.source_date);
-          let options = {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          };
-          const formattedDate = dateObject.toLocaleString("en-GB", options);
+      {documents.map((document) => {
+        const dateObject = new Date(document.source_date);
+        let options = {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        };
+        const formattedDate = dateObject.toLocaleString("en-GB", options);
 
-          return (
-            <div
-              key={document.id}
-              data-document-id={document.id}
-              className="nlux-document"
-            >
-              <div className="nlux-document-left">
-                <small
-                  className={`badge badge-sm ${getColorClass(document.rating)}`}
-                  style={{ marginRight: "5px" }}
-                >
-                  {document.rating}
-                </small>
-              </div>
-              <div className="nlux-document-right">
-                <a
-                  href={document.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {document.title}
-                </a>
-                <div className="nlux-document-meta">
-                  <small style={{ whiteSpace: "nowrap" }}>
-                    Published on {formattedDate}
-                  </small>
+        return (
+          <div
+            className="nlux-doc-document-card"
+            key={document.id}
+            data-document-id={document.id}
+          >
+            <div className="nlux-doc-icon-container"></div>
+            <div className="nlux-doc-content-container">
+              <h2>{document.title}</h2>
+              <p className="nlux-doc-published">
+                <b>Published on:</b> {formattedDate}
+              </p>
+              <p className="nlux-doc-source">
+                <b>Source:</b> {document.source}
+              </p>
+              <div className="nlux-doc-score-container">
+                <div className="nlux-doc-score-badge">
+                  <span className="nlux-doc-grade">{document.rating}</span>
+                  <span className="nlux-doc-score">
+                    {parseFloat(document.score.toFixed(3))}
+                  </span>
                 </div>
               </div>
             </div>
-          );
-        })}
-      </div>
-    </>
+          </div>
+        );
+      })}
+    </div>
   );
 };

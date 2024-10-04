@@ -190,77 +190,82 @@
         </svg>\
     ');
 }
-//
-//
-//.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
-//  --nlux-dvr--brdrWd: 0;
-//  --nlux-chtr-dvr--clr: transparent;
-//  --nlux-hmMsg--bgClr: #fff;
-//  --nlux-hmMsg--txtClr: #26324b;
-//
-//
-//  --nlux-prmInp--bgClr: #fff;
-//  --nlux-sbmBt-dslb--bgClr: #fff;
-//
-//  --nlux-aiMsg--bgClr: #f3f5fb;
-//  --nlux-aiMsg--txtClr: #26324b;
-//
-//  .nlux-comp-chatItem {
-//    margin-bottom: 0.75rem;
-//    a {
-//      font-weight: bold;
-//      color: #3860ed;
-//      text-decoration: none;
-//      &:hover {
-//        text-decoration: underline;
-//        cursor: pointer;
-//      }
-//    }
-//  }
-//  .nlux-chatRoom-container {
-//    border: 1px solid #ddd;
-//    padding: 2rem;
-//  }
-//  .nlux-conversation-container,
-//  .nlux-comp-composer {
-//    background-color: #fcfcfd;
-//  }
-//}
-//
-//.nlux-document {
-//  display: flex;
-//  align-items: initial;
-//  &-left {
-//    padding-top: 5px;
-//  }
-//  &-right {
-//    flex-grow: 1;
-//  }
-//  &-meta {
-//    @extend .text-muted;
-//    margin-bottom: 0.25em;
-//  }
-//}
-//
-//.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
-//  --nlux-chtr-dvr--clr: #ddd;
-//  --nlux-hmMsg--bgClr: #d8e0fb;
-//  --nlux-hmMsg--txtClr: #26324b;
-//
-//  --nlux-aiMsg--bgClr: #f3f5fb;
-//  --nlux-aiMsg--txtClr: #26324b;
-//
-//  .nlux-comp-chatItem {
-//    margin-bottom: 0.75rem;
-//  }
-//  .nlux-chatRoom-container {
-//    border: 1px solid #ddd;
-//  }
-//  .nlux-conversation-container,
-//  .nlux-comp-composer {
-//    background-color: #fcfcfd;
-//    textarea:focus {
-//      box-shadow: none !important;
-//    }
-//  }
-//}
+.nlux-documents {
+  font-family: "Inter", sans-serif;
+  .nlux-doc-document-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    color: #333333;
+    border: 1px solid #cccccc;
+
+    .nlux-doc-icon-container {
+      flex: 0 0 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #a83232;
+      padding: 10px;
+      border-radius: 8px;
+      margin-right: 15px;
+      img {
+        width: 30px;
+        height: auto;
+      }
+    }
+
+    .nlux-doc-content-container {
+      flex: 1;
+      h2 {
+        font-size: 18px;
+        margin: 0;
+        margin-bottom: 8px;
+        color: #333333;
+      }
+      .nlux-doc-published,
+      .nlux-doc-source {
+        font-size: 14px;
+        margin: 0;
+        color: #666666;
+      }
+      .nlux-doc-score-container {
+        display: flex;
+        align-items: center;
+        .nlux-doc-score-badge {
+          background-color: #3c6140;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 25px;
+          padding: 0;
+          padding-right: 10px;
+
+          .nlux-doc-grade {
+            background-color: #2a482b;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            margin-right: 5px;
+            border: 2px solid white;
+            margin-left: -1px;
+          }
+
+          .nlux-doc-score {
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
