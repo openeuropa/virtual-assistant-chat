@@ -16,13 +16,30 @@
 
 .nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
   .nlux-chatRoom-container {
-    padding: 10px;
+    padding: 1rem;
     .nlux-composer-container {
       margin-top: 1rem;
       border: 1px solid #ced4da;
-      padding: 12px 16px;
       border-radius: 24px;
     }
+  }
+  .nlux-comp-chatItem {
+    margin-bottom: 2rem;
+  }
+  .nlux-comp-message {
+    &.nlux_msg_received {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+  .nlux-chat-avatar-user {
+    background-color: #6f42c1;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   //--nlux-Exceptions--BackgroundColor: tomato;
@@ -86,7 +103,7 @@
   //--nlux-nova--FontFamily: 'Inter', sans-serif;
   //--nlux-nova--MonoFontFamily: monospace;
   //--nlux-nova--BorderWidth: 0;
-  //--nlux-nova--LineHeight: 1.4;
+  --nlux-nova--LineHeight: 1.6;
   //--nlux-nova--FlexGap: 12px;
   //--nlux-Exceptions--Padding: 5px;
   //--nlux-Exceptions--BorderWidth: var(--nlux-nova--BorderWidth);
@@ -108,7 +125,7 @@
   //--nlux-ChatRoom--BorderRadius: 18px;
   //--nlux-ChatRoom--BorderWidth: var(--nlux-nova--BorderWidth);
   //--nlux-ChatRoom-Loader--Width: 25px;
-  //--nlux-ChatItem--AlignItems: flex-end;
+  --nlux-ChatItem--AlignItems: flex-start;
   //--nlux-ChatItem-ParticipantInfo--Gap: var(--nlux-nova--FlexGap);
   //--nlux-ChatItem-ParticipantInfo--Padding: 0px;
   //--nlux-ChatItem-ParticipantName--FontSize: 16px;

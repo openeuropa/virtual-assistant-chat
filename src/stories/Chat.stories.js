@@ -33,8 +33,7 @@ export const Conversation = {
       },
       {
         role: "user",
-        message:
-          "Interesting! How does it work politically? Who makes decisions for the EU? Do all countries have equal say?",
+        message: "Interesting! How does it work politically?",
       },
       {
         role: "assistant",

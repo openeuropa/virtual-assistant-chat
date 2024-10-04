@@ -28,7 +28,11 @@ function Chat({
           },
           user: {
             name,
-            avatar: `data:image/svg+xml;base64,${btoa(userAvatar)}`,
+            avatar: (
+              <div className="nlux-chat-avatar-user">
+                {name ? name.charAt(0).toUpperCase() : "U"}
+              </div>
+            ),
           },
         }}
         messageOptions={{
