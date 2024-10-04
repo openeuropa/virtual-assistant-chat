@@ -3,7 +3,14 @@ import userAvatar from "@/assets/user-avatar.svg?raw";
 import { AiChat, useAsBatchAdapter } from "@nlux/react";
 import { Documents } from "@/components/Documents.jsx";
 
-function Chat({ name, width, height, adapter = async () => "", events = {} }) {
+function Chat({
+  name,
+  width,
+  height,
+  adapter = async () => "",
+  events = {},
+  initialConversation = null,
+}) {
   return (
     <div id={"virtual-assistant"}>
       <AiChat
@@ -39,6 +46,7 @@ function Chat({ name, width, height, adapter = async () => "", events = {} }) {
         }}
         adapter={useAsBatchAdapter(adapter)}
         events={events}
+        initialConversation={initialConversation}
       />
     </div>
   );
