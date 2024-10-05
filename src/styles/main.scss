@@ -1,33 +1,16 @@
 @import "@nlux/themes/nova.css";
 
-.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
-  .nlux-chatRoom-container {
-    padding: 1rem;
-    .nlux-composer-container {
-      margin-top: 1rem;
-      border: 1px solid #ced4da;
-      border-radius: 24px;
-    }
-  }
-  .nlux-comp-chatItem {
-    margin-bottom: 2rem;
-  }
-  .nlux-comp-message {
-    &.nlux_msg_received {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  }
-  .nlux-chat-avatar-user {
-    background-color: #6f42c1;
-    color: white;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    text-align: center;
-    text-transform: uppercase;
-  }
+$rating-colors: (
+  a: #146c43,
+  b: #3e7143,
+  c: #787744,
+  d: #b37c44,
+  e: #eb8244,
+  f: #ff0000,
+  none: #666666,
+);
 
+.nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
   //--nlux-Exceptions--BackgroundColor: tomato;
   //--nlux-Exceptions--BorderColor: darkred;
   //--nlux-Exceptions--TextColor: white;
@@ -83,6 +66,33 @@
   //--nlux-ConversationStarter--BackgroundColor: var(--nlux-AiMessage--BackgroundColor);
   //--nlux-ConversationStarter--BorderColor: transparent;
   //--nlux-ConversationStarter--TextColor: var(--nlux-AiMessage--TextColor)
+
+  .nlux-chatRoom-container {
+    padding: 1rem;
+    .nlux-composer-container {
+      margin-top: 1rem;
+      border: 1px solid #ced4da;
+      border-radius: 24px;
+    }
+  }
+  .nlux-comp-chatItem {
+    margin-bottom: 2rem;
+  }
+  .nlux-comp-message {
+    &.nlux_msg_received {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+  .nlux-chat-avatar-user {
+    background-color: #6f42c1;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+  }
 }
 
 .nlux-AiChat-root.nlux-theme-nova {
@@ -194,7 +204,7 @@
   font-family: "Inter", sans-serif;
   .nlux-doc-document-card {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     background-color: white;
     border-radius: 8px;
     padding: 20px;
@@ -203,64 +213,84 @@
     border: 1px solid #cccccc;
 
     .nlux-doc-icon-container {
-      flex: 0 0 50px;
+      flex: 0 0 25px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #a83232;
+      background-color: #b02a37;
       padding: 10px;
       border-radius: 8px;
       margin-right: 15px;
       img {
-        width: 30px;
+        width: 20px;
         height: auto;
       }
     }
 
     .nlux-doc-content-container {
       flex: 1;
-      h2 {
+      h2.nlux-doc-title {
+        a {
+          color: #0e47cb;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
         font-size: 18px;
-        margin: 0;
-        margin-bottom: 8px;
+        line-height: 1.5;
+        margin: 0 0 8px;
         color: #333333;
       }
+      .nlux-doc-score-container,
       .nlux-doc-published,
       .nlux-doc-source {
+        height: 22px;
+        margin: 0 0 5px;
         font-size: 14px;
-        margin: 0;
         color: #666666;
       }
       .nlux-doc-score-container {
-        display: flex;
+        margin-bottom: 0;
+      }
+      .nlux-doc-score-container {
+        display: inline-flex;
         align-items: center;
-        .nlux-doc-score-badge {
-          background-color: #3c6140;
+        .nlux-doc-badge {
+          @each $rating, $color in ($rating-colors) {
+            &.nlux-rating-#{$rating} {
+              background-color: $color;
+            }
+          }
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: 25px;
-          padding: 0;
-          padding-right: 10px;
+          margin-left: 5px;
+          padding: 0 10px 0 0;
 
           .nlux-doc-grade {
-            background-color: #2a482b;
+            @each $rating, $color in ($rating-colors) {
+              &.nlux-rating-#{$rating} {
+                background-color: $color;
+              }
+            }
             color: white;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             margin-right: 5px;
             border: 2px solid white;
             margin-left: -1px;
           }
 
           .nlux-doc-score {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: white;
           }

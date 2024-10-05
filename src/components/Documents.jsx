@@ -1,17 +1,17 @@
 import React from "react";
+import pdfIcon from "@/assets/pdf-icon.svg?raw";
 
 export const Documents = ({ documents }) => {
   const ratingColorMap = {
-    A: "bg-success",
-    B: "bg-warning",
-    C: "bg-danger",
-    D: "bg-danger",
-    F: "bg-danger",
+    A: "nlux-rating-a",
+    B: "nlux-rating-b",
+    C: "nlux-rating-c",
+    D: "nlux-rating-d",
+    E: "nlux-rating-e",
+    F: "nlux-rating-f",
   };
 
-  const getColorClass = (rating) => {
-    return ratingColorMap[rating] || "bg-secondary";
-  };
+  const color = (rating) => ratingColorMap[rating] || "nlux-rating-none";
 
   return (
     <div className="nlux-documents">
@@ -34,9 +34,15 @@ export const Documents = ({ documents }) => {
             key={document.id}
             data-document-id={document.id}
           >
-            <div className="nlux-doc-icon-container"></div>
+            <div className="nlux-doc-icon-container">
+              <img src={`data:image/svg+xml;base64,${btoa(pdfIcon)}`} />
+            </div>
             <div className="nlux-doc-content-container">
-              <h2>{document.title}</h2>
+              <h2 className="nlux-doc-title">
+                <a href={document.source_url} target={"_blank"}>
+                  {document.title}
+                </a>
+              </h2>
               <p className="nlux-doc-published">
                 <b>Published on:</b> {formattedDate}
               </p>
@@ -44,8 +50,11 @@ export const Documents = ({ documents }) => {
                 <b>Source:</b> {document.source}
               </p>
               <div className="nlux-doc-score-container">
-                <div className="nlux-doc-score-badge">
-                  <span className="nlux-doc-grade">{document.rating}</span>
+                <b>Relevance score:</b>
+                <div className={`nlux-doc-badge ${color(document.rating)}`}>
+                  <span className={`nlux-doc-grade ${color(document.rating)}`}>
+                    {document.rating}
+                  </span>
                   <span className="nlux-doc-score">
                     {parseFloat(document.score.toFixed(3))}
                   </span>

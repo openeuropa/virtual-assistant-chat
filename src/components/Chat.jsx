@@ -1,5 +1,4 @@
 import vaAvatar from "@/assets/va-avatar.svg?raw";
-import userAvatar from "@/assets/user-avatar.svg?raw";
 import { AiChat, useAsBatchAdapter } from "@nlux/react";
 import { Documents } from "@/components/Documents.jsx";
 
