@@ -18,6 +18,7 @@ function Chat({
       <AiChat
         composerOptions={{
           autoFocus: true,
+          placeholder: "Type your prompt here...",
         }}
         personaOptions={{
           assistant: {
