@@ -48,18 +48,18 @@ describe("chat", () => {
         cy.assertDocument({
           id: "80081c40-dcc6-7a24-15a9-5092924b2b27",
           rating: "B",
-          status: "warning",
+          score: 0.355,
           title: "First document",
           url: "https://example.com/1",
-          meta: "Published on 23 May 2024",
+          meta: "Published on: 23 May 2024",
         });
         cy.assertDocument({
           id: "56009c9f-a60f-e660-8090-2ec6ba5796c0",
           rating: "A",
-          status: "success",
+          score: 0.815,
           title: "Second document",
           url: "https://example.com/2",
-          meta: "Published on 10 June 2024",
+          meta: "Published on: 10 June 2024",
         });
       });
     });
