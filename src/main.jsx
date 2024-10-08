@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import App from "@/App.jsx";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const jwtEndpoint = import.meta.env.VITE_JWT_ENDPOINT;

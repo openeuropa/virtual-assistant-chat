@@ -1,7 +1,7 @@
 import { Documents } from "../components/Documents.jsx";
 
 export default {
-  title: "Chat/Documents",
+  title: "Components/Documents",
   component: Documents,
 };
 
