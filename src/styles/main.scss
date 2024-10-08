@@ -11,9 +11,18 @@ $rating-colors: (
 );
 
 .nlux-chatRoom-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   border: 1px solid #ced4da;
   padding: 1rem;
   border-radius: 10px;
+  .nlux-disclaimer {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    text-align: center;
+    color: #666;
+  }
 }
 
 .nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {

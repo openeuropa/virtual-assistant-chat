@@ -58,6 +58,10 @@ function Chat({
         events={events}
         initialConversation={initialConversation}
       />
+      <div className="nlux-disclaimer">
+        Chats aren’t used to train our models. The virtual assistant can make
+        mistakes.
+      </div>
     </div>
   );
 }
