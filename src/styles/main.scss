@@ -10,6 +10,12 @@ $rating-colors: (
   none: #666666,
 );
 
+.nlux-chatRoom-wrapper {
+  border: 1px solid #ced4da;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
 .nlux-AiChat-root.nlux-theme-nova[data-color-scheme="light"] {
   --nlux-ChatRoom-Divider--Color: white;
   --nlux-HumanMessage--BackgroundColor: #e9ecef;
@@ -17,11 +23,12 @@ $rating-colors: (
   --nlux-AiMessage--BackgroundColor: transparent;
 
   .nlux-chatRoom-container {
-    padding: 1rem;
-    .nlux-composer-container {
-      margin-top: 1rem;
+    .nlux-comp-composer {
       border: 1px solid #ced4da;
       border-radius: 24px;
+    }
+    .nlux-composer-container {
+      margin-top: 1rem;
     }
   }
   .nlux-comp-chatItem {
@@ -107,6 +114,10 @@ $rating-colors: (
     .nlux-doc-content-container {
       flex: 1;
       h2.nlux-doc-title {
+        font-size: 18px;
+        line-height: 1.5;
+        margin: 0 0 8px;
+        color: #333333;
         a {
           color: #0e47cb;
           text-decoration: none;
@@ -114,10 +125,6 @@ $rating-colors: (
             text-decoration: underline;
           }
         }
-        font-size: 18px;
-        line-height: 1.5;
-        margin: 0 0 8px;
-        color: #333333;
       }
       .nlux-doc-score-container,
       .nlux-doc-published,
@@ -140,24 +147,13 @@ $rating-colors: (
         display: inline-flex;
         align-items: center;
         .nlux-doc-badge {
-          @each $rating, $color in ($rating-colors) {
-            &.nlux-rating-#{$rating} {
-              background-color: $color;
-            }
-          }
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: 25px;
           margin-left: 5px;
           padding: 0 10px 0 0;
-
           .nlux-doc-grade {
-            @each $rating, $color in ($rating-colors) {
-              &.nlux-rating-#{$rating} {
-                background-color: $color;
-              }
-            }
             color: white;
             font-size: 11px;
             font-weight: bold;
@@ -170,12 +166,21 @@ $rating-colors: (
             margin-right: 5px;
             border: 2px solid white;
             margin-left: -1px;
+            @each $rating, $color in ($rating-colors) {
+              &.nlux-rating-#{$rating} {
+                background-color: $color;
+              }
+            }
           }
-
           .nlux-doc-score {
             font-size: 13px;
             font-weight: bold;
             color: white;
+          }
+          @each $rating, $color in ($rating-colors) {
+            &.nlux-rating-#{$rating} {
+              background-color: $color;
+            }
           }
         }
       }

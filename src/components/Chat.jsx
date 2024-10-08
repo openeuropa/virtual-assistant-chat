@@ -14,7 +14,11 @@ function Chat({
     ? `Hello ${name || "there"}, You are now connected!`
     : "Authenticating...";
   return (
-    <div id={"virtual-assistant"}>
+    <div
+      id={"virtual-assistant"}
+      className="nlux-chatRoom-wrapper"
+      style={{ width, height }}
+    >
       <AiChat
         composerOptions={{
           autoFocus: true,
@@ -48,7 +52,6 @@ function Chat({
         displayOptions={{
           themeId: "nova",
           colorScheme: "light",
-          width,
           height,
         }}
         adapter={useAsBatchAdapter(adapter)}
